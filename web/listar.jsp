@@ -18,29 +18,31 @@
         <br>
         <a href="principal.jsp">Regresar...........................</a>
         <br>
-        
+
         <h4>LISTA DE USUARIOS</h4>         
         <table border="1px">
             <thead>
                 <tr>
-                    <th>CUENTA</th>
                     <th>NOMBRES</th>
                     <th>APELLIDOS</th>
-                    <th>USUARIOS</th>
+                    <th>USUARIO</th>
+                    <th>IDENTIDAD</th>
                 </tr>
             </thead>
             <tbody>
                 <%
                     try {
-                        Dba db = new Dba(application.getRealPath("")+"daw.mdb");
+                        Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                         db.conectar();
-                        
-                        db.query.execute("select cuenta, nombres, apellidos,usuario from usuarios a");
+                        db.query.execute("select nombre, apellidos, username, identidad from users");
                         ResultSet rs = db.query.getResultSet();
                         String centinela = "n";
                         while (rs.next()) {%>
-                <tr> <td><%=rs.getString(1)%></td> <td><%=rs.getString(2)%></td>
-                    <td><%=rs.getString(3)%></td > <td><%=rs.getString(4)%></td > 
+                <tr> 
+                    <td><%=rs.getString(1)%></td>
+                    <td><%=rs.getString(2)%></td>
+                    <td><%=rs.getString(3)%></td> 
+                    <td><%=rs.getString(4)%></td> 
                 </tr>         
                 <%
                         }
