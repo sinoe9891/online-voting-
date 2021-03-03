@@ -2,14 +2,14 @@
 <%@page import="database.*"%>
 <%
     try {
-
-        Dba db = new Dba(application.getRealPath("") + "daw.mdb");
+//      Conexión Apache  Dba db = new Dba(application.getRealPath("") + "daw.mdb");
+        Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
         db.conectar();
-        db.query.execute("select usuario, password from usuarios");
+        db.query.execute("select username, password from users");
         ResultSet rs = db.query.getResultSet();
         String centinela = "n";
         while (rs.next()) {
-            if (request.getParameter("ti_usuario").equals(rs.getString(1)) 
+            if (request.getParameter("ti_usuario").equals(rs.getString(1))
                     && request.getParameter("ti_password").equals(rs.getString(2))) {
                 centinela = "s";
             }
@@ -29,4 +29,3 @@
         e.printStackTrace();
     }
 %>
-
