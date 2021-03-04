@@ -187,9 +187,46 @@ input[type="submit"] {
 	font-weight: 500;
 	color: #A6A4B0;
 }
-.main-body-page{
-	
+.card {
+    margin: 2rem !important;
 }
+.main-body-page {
+    width: 100%;
+}
+.card-content{
+	width: 250px;
+	margin: 2.5rem;
+	box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+
+}
+.img-logo{
+	width: 100px;
+}
+
+.img-logo img{
+	width: 100%;
+    max-width: 250px;
+    min-width: 250px;
+	height: 160px;
+	object-fit: cover
+}
+.nombre-partido{
+	padding-top: 10px;
+	text-align: center;
+}
+.responsive{
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+.nav-header{
+	display: flex;
+    padding: 1rem;
+}
+.col-lg-12.col-xl-6 {
+    display: none;
+}
+
 @media only screen and (max-width: 769px) {
     .imagen-login {
         display: none;

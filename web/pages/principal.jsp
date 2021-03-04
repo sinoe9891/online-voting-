@@ -48,19 +48,18 @@
 			<div class="sidebar-main">
 				<div class="img-log">
 					<img class="logo-plat-sidebar" src="src/img/Votem_Logo_Primary_Navy.png" alt="">
-					<img class="logo-sidebar" src="src/img/logo-ceutec.png" alt="">
+					<img class="logo-sidebar" src="src/img/logo-ceutec.png" alt=""></a>
 				</div>
 				<nav>
 					<ul class="navigation navigation-main">
-						<li class="nav-item"><a href="#"><i class="fas fa-poll"></i>Métricas</li></a>
-						<li class="nav-item"><a href="#"><i class="far fa-flag"></i>Partidos Políticos</li></a>
-						<li class="nav-item"><a href="#"><i class="fas fa-user"></i>Presidente</li></a>
+						<li class="nav-item"><a href="partidos-politicos.jsp"><i class="far fa-flag"></i>Partidos Políticos</li></a>
+						<li class="nav-item"><a href="presidente.jsp"><i class="fas fa-user"></i>Presidente</li></a>
 						<li class="nav-item"><a href="#"><i class="fas fa-user-friends"></i>Alcaldes</li></a>
 						<li class="nav-item"><a href="#"><i class="fas fa-users"></i>Diputados</li></a>
 						<li class="nav-item"><a href="#"><i class="fas fa-person-booth"></i>Votantes</li></a>
-						<li class="nav-item"><a href="pages/usuarios.jsp"><i class="fas fa-user-cog"></i>Usuarios</li></a>
+						<li class="nav-item"><a href="usuarios.jsp"><i class="fas fa-user-cog"></i>Usuarios</li></a>
 						<li class="nav-item header-item">TÍTULO</li>
-						
+						<li class="nav-item"><a href="#"><i class="fas fa-poll"></i>Métricas</li></a>
 					</ul>
 				</nav>
 			</div>

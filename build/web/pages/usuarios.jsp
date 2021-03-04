@@ -53,20 +53,19 @@
 
 			<div class="sidebar-main">
 				<div class="img-log">
-					<img class="logo-plat-sidebar" src="../src/img/Votem_Logo_Primary_Navy.png" alt="">
-					<img class="logo-sidebar" src="../src/img/logo-ceutec.png" alt="">
+					<img class="logo-plat-sidebar" src="src/img/Votem_Logo_Primary_Navy.png" alt="">
+					<img class="logo-sidebar" src="src/img/logo-ceutec.png" alt=""></a>
 				</div>
 				<nav>
 					<ul class="navigation navigation-main">
-						<li class="nav-item"><a href="#"><i class="fas fa-poll"></i>Métricas</li></a>
-						<li class="nav-item"><a href="#"><i class="far fa-flag"></i>Partidos Políticos</li></a>
-						<li class="nav-item"><a href="#"><i class="fas fa-user"></i>Presidente</li></a>
+						<li class="nav-item"><a href="partidos-politicos.jsp"><i class="far fa-flag"></i>Partidos Políticos</li></a>
+						<li class="nav-item"><a href="presidente.jsp"><i class="fas fa-user"></i>Presidente</li></a>
 						<li class="nav-item"><a href="#"><i class="fas fa-user-friends"></i>Alcaldes</li></a>
 						<li class="nav-item"><a href="#"><i class="fas fa-users"></i>Diputados</li></a>
 						<li class="nav-item"><a href="#"><i class="fas fa-person-booth"></i>Votantes</li></a>
-						<li class="nav-item"><a href="#"><i class="fas fa-user-cog"></i>Usuarios</li></a>
+						<li class="nav-item"><a href="usuarios.jsp"><i class="fas fa-user-cog"></i>Usuarios</li></a>
 						<li class="nav-item header-item">TÍTULO</li>
-
+						<li class="nav-item"><a href="#"><i class="fas fa-poll"></i>Métricas</li></a>
 					</ul>
 				</nav>
 			</div>
@@ -77,8 +76,23 @@
 						<!-- users list start -->
 						<section class="app-user-list">
 							<div class="card">
+								<div class="nav-header">
+									<div style="width: 50%;">
+										<h3 style="line">Usuarios</h3>
+									</div>
+									<div style="text-align:right;width: 50%;">
+										<button class="btn add-new btn-primary mt-100" type="button"><span>Agregar</span></button>
+										<button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
+										<button class="btn add-new btn-warning mt-100" type="button"><span>Modificar</span></button>
+										<button class="btn add-new btn-danger mt-100" type="button"><span>Eliminar</span></button>
+									</div>
+								</div>
+							</div>
+						</section>
+						<section class="app-user-list">
+							<div class="card">
 								<div class="card-datatable table-responsive pt-0">
-									<table class="user-list-table table">
+									<table class="user-list-table ">
 										<thead class="thead-light">
 											<tr>
 												<th>Nombre</th>
@@ -86,7 +100,7 @@
 												<th>Username</th>
 												<th>Email</th>
 												<th>Role</th>
-												<th>Acción</th>
+												<%-- <th>Acción</th> --%>
 											</tr>
 										</thead>
 										<tbody>
@@ -119,43 +133,6 @@
 														</svg>
 														SuperAdmin
 													</span><%=rs.getString(6)%>
-												</td>
-												<td>
-													<div class="btn-group"><a class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown"><svg
-																xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-																stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-																class="feather feather-more-vertical font-small-4">
-																<circle cx="12" cy="12" r="1"></circle>
-																<circle cx="12" cy="5" r="1"></circle>
-																<circle cx="12" cy="19" r="1"></circle>
-															</svg></a>
-														<div class="dropdown-menu dropdown-menu-right"><a href="app-user-view.html" class="dropdown-item"><svg
-																	xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-																	stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-																	class="feather feather-file-text font-small-4 mr-50">
-																	<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-																	<polyline points="14 2 14 8 20 8"></polyline>
-																	<line x1="16" y1="13" x2="8" y2="13"></line>
-																	<line x1="16" y1="17" x2="8" y2="17"></line>
-																	<polyline points="10 9 9 9 8 9"></polyline>
-																</svg>Details</a><a href="app-user-edit.html" class="dropdown-item"><svg
-																	xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-																	stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-																	class="feather feather-archive font-small-4 mr-50">
-																	<polyline points="21 8 21 21 3 21 3 8"></polyline>
-																	<rect x="1" y="3" width="22" height="5"></rect>
-																	<line x1="10" y1="12" x2="14" y2="12"></line>
-																</svg>Edit</a><a href="javascript:;" class="dropdown-item delete-record"><svg
-																	xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-																	stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-																	class="feather feather-trash-2 font-small-4 mr-50">
-																	<polyline points="3 6 5 6 21 6"></polyline>
-																	<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-																	<line x1="10" y1="11" x2="10" y2="17"></line>
-																	<line x1="14" y1="11" x2="14" y2="17"></line>
-																</svg>Delete</a>
-														</div>
-													</div>
 												</td>
 											</tr>
 											<%

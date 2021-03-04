@@ -49,7 +49,6 @@
 								<div>
 								<input type="submit" value="Login" name="bt_login" />
 								</div>
-								
 							</form>
 						</div>
 					</div>
