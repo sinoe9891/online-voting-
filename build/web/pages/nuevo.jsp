@@ -8,7 +8,8 @@
 <%
 if ( request.getParameter("bt_crear") !=null ) {
                   try {
-                    Dba db = new Dba(application.getRealPath("")+"daw.mdb");
+                    Dba db = new Dba(application.getRealPath("daw.mdb"));
+//                    Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                     db.conectar();                                         
                     int contador=db.query.executeUpdate("insert into usuarios"
                                         + "(cuenta,nombres,apellidos,usuario,password) "
@@ -30,7 +31,8 @@ if ( request.getParameter("bt_crear") !=null ) {
 %>
 <br>
         <br>
-        <a href="principal.jsp">Regresar...........................</a>
+        <a href="principal.jsp">Regresar</a>
+        <a href="index.jsp">Cerrar Sesión</a>
         <br>
         <h4>Nuevo Usuario</h4>
         <form name="f1" action="nuevo.jsp" method="POST">

@@ -19,7 +19,7 @@
             session.setAttribute("s_user", request.getParameter("ti_usuario"));
             session.setAttribute("s_pass", request.getParameter("ti_password"));
             //llamar jsp correspondiete desde linea de comando
-            request.getRequestDispatcher("principal.jsp").forward(request, response);
+            request.getRequestDispatcher("pages/principal.jsp").forward(request, response);
         } else {
             out.print("<script>alert('el usuario no existe')</script>");
             request.getRequestDispatcher("index.jsp").forward(request, response);

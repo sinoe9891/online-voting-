@@ -16,7 +16,8 @@
         Campus: <%=request.getParameter("campus")%>      
         <br>
         <br>
-        <a href="principal.jsp">Regresar...........................</a>
+        <a href="principal.jsp">Regresar</a>
+        <a href="../index.jsp">Cerrar Sesión</a>
         <br>
 
         <h4>LISTA DE USUARIOS</h4>         

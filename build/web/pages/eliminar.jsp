@@ -21,7 +21,6 @@
         Dba db = new Dba(application.getRealPath("")+"daw.mdb");
         db.conectar(); 
         
-        
         int contador=db.query.executeUpdate("delete from usuarios WHERE cuenta='"+ request.getParameter("p_cuenta")+"' ");
 
         if(contador>=1){

@@ -18,9 +18,8 @@
 <%
  if (request.getParameter("bt_modificar") != null) {
     try {
-        Dba db = new Dba(application.getRealPath("")+"daw.mdb");
+        Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
         db.conectar(); 
-        
         
         int contador=db.query.executeUpdate("UPDATE usuarios "
                 + "SET nombres='"+request.getParameter("ti_nombre")+"',   "
@@ -46,7 +45,8 @@
 
 <br>
         <br>
-        <a href="principal.jsp">Regresar...........................</a>
+        <a href="principal.jsp">Regresar</a>
+        <a href="principal.jsp">Cerrar Sesión</a>
         <br>
 
 
