@@ -16,10 +16,10 @@
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/sidebar.css">
 	<link rel="stylesheet" href="../css/all.css">
-	<link rel="stylesheet" href="../css/css/bootstrap.css">
+	<link rel="stylesheet" href="../src/app-assets/css/bootstrap.css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="stylesheet" type="text/css" href="../css/css/pages/app-user.css">
-	<link rel="stylesheet" type="text/css" href="../css/css/components.css">
+	<link rel="stylesheet" type="text/css" href="../src/app-assets/css/pages/app-user.css">
+	<link rel="stylesheet" type="text/css" href="../src/app-assets/css/components.css">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 	<title>Votación Online</title>
 	<link rel="shortcut icon" href="../src/img/unitec.ico" type="image/x-icon">
@@ -53,8 +53,8 @@
 
 			<div class="sidebar-main">
 				<div class="img-log">
-					<img class="logo-plat-sidebar" src="src/img/Votem_Logo_Primary_Navy.png" alt="">
-					<img class="logo-sidebar" src="src/img/logo-ceutec.png" alt=""></a>
+					<img class="logo-plat-sidebar" src="../src/img/Votem_Logo_Primary_Navy.png" alt="">
+					<img class="logo-sidebar" src="../src/img/logo-ceutec.png" alt="">
 				</div>
 				<nav>
 					<ul class="navigation navigation-main">

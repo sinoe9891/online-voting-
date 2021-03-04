@@ -197,7 +197,11 @@ input[type="submit"] {
 	width: 250px;
 	margin: 2.5rem;
 	box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+	transition: transform 0.3s ease-in-out;
 
+}
+.card-content:hover{
+	transform: scale(1.09);
 }
 .img-logo{
 	width: 100px;
