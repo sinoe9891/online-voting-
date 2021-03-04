@@ -25,11 +25,7 @@
 .main {
     display: flex;
     justify-content: center;
-    background: linear-gradient(
-        90deg,
-        rgba(248, 248, 248, 1) 0%,
-        rgba(255, 255, 255, 1) 100%
-    );
+    background-color: #f8f8f8;
 }
 .main-login {
     display: flex;
@@ -40,11 +36,17 @@
         rgba(255, 255, 255, 1) 100%
     );
 }
+.main-sidebar {
+    display: flex;
+    justify-content: center;
+    background-color: #f6f6f6;
+}
 .container {
     width: 100%;
     height: 100vh;
     display: flex;
     max-width: 1280px;
+    background-color: white;
 }
 .container-login {
     width: 100%;
@@ -67,8 +69,8 @@
 .logo {
     width: 400px;
 }
-.logo-platform{
-	width: 100px;
+.logo-platform {
+    width: 100px;
 }
 .color-colum-one {
     background-color: white;
@@ -138,7 +140,56 @@ input[type="submit"] {
     display: none;
 }
 
+/* Sidebar  */
+.sidebar-main {
+    width: 260px;
+    background-color: white;
+}
+.img-log {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+.logo-sidebar {
+    width: 134px;
+}
 
+.logo-plat-sidebar {
+    width: 50px;
+}
+
+.navigation-main {
+    padding-inline-start: 10px;
+}
+.navigation-main li {
+    transition: transform 0.3s ease-in-out;
+}
+.navigation-main li:hover {
+    transform: translateX(5px);
+}
+.nav-item {
+    margin:0px 15px;
+	padding: 10px 15px;
+	list-style: none;
+}
+.nav-item a {
+    text-decoration: none;
+    color: #625f6e;
+    padding: 10px 0px 10px 0px;
+    line-height: 1.45;
+    margin-left: 5px;
+}
+.far, .fas {
+    margin-right: 10px !important;
+}
+.header-item{
+	font-weight: 500;
+	color: #A6A4B0;
+}
+.main-body-page{
+	
+}
 @media only screen and (max-width: 769px) {
     .imagen-login {
         display: none;
@@ -149,9 +200,9 @@ input[type="submit"] {
     /* .container-login img {
 		width: 50%;
 	} */
-	.logo-platform{
-		width: 100px;
-	}
+    .logo-platform {
+        width: 100px;
+    }
     .col-4 {
         width: 100%;
     }
@@ -170,9 +221,9 @@ input[type="submit"] {
     .logo {
         width: 200px;
     }
-	.logo-platform{
-		width: 50px;
-	}
+    .logo-platform {
+        width: 50px;
+    }
     .col-4 {
         width: 100%;
     }
