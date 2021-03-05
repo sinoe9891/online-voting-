@@ -16,7 +16,7 @@
         Campus: <%=request.getParameter("campus")%>      
         <br>
         <br>
-        <a href="principal.jsp">Regresar</a>
+        <a href="nuevo.jsp">Regresar</a>
         <a href="../index.jsp">Cerrar Sesión</a>
         <br>
 
@@ -32,25 +32,23 @@
             </thead>
             <tbody>
                 <%
-                    try {
-                        Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
-                        db.conectar();
-                        db.query.execute("select nombre, apellidos, username, identidad from users");
-                        ResultSet rs = db.query.getResultSet();
-                        String centinela = "n";
-                        while (rs.next()) {%>
-                <tr> 
-                    <td><%=rs.getString(1)%></td>
-                    <td><%=rs.getString(2)%></td>
-                    <td><%=rs.getString(3)%></td> 
-                    <td><%=rs.getString(4)%></td> 
-                </tr>         
-                <%
+                        try {
+                            Dba db = new Dba(application.getRealPath("daw.mdb"));
+                            db.conectar();
+                            db.query.execute("select cuenta, nombres, apellidos,usuario from usuarios");                            
+                            ResultSet rs = db.query.getResultSet();
+                            String centinela = "n";
+                            while (rs.next()) {%>
+                               <tr> <td><%=rs.getString(1)%></td> <td><%=rs.getString(2)%></td>
+                                       <td><%=rs.getString(3)%></td > <td><%=rs.getString(4)%></td > 
+                               </tr>         
+                            <%  
+                            }                                      
+                            db.desconectar();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        db.desconectar();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                %>                
+                    %>                
+          
             </tbody>
         </table>      </body> </html>

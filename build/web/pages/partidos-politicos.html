@@ -90,32 +90,30 @@
 						<div class="card">
 							<div class="responsive">
 								<%
-									try {
-										Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
-										db.conectar();
-										db.query.execute("select nombre, src_url_logo from partido_politico");
-										ResultSet rs = db.query.getResultSet();
-										String centinela = "n";
-										while (rs.next()) {%>
+                                                                    try {
+                                                                        Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+                                                                        db.conectar();
+                                                                        db.query.execute("select nombre, src_url_logo from partido_politico");
+                                                                        ResultSet rs = db.query.getResultSet();
+                                                                        String centinela = "n";
+                                                                        while (rs.next()) {%>
 
-										
-											<div class="card-content">
-												<div class="img-logo">
-													<img src="../src/partidos/<%=rs.getString(2)%>" alt="<%=rs.getString(2)%>">
-												</div>
-												<div class="nombre-partido">
-													<h4><%=rs.getString(1)%></h4>
-												</div>
-												
-											</div>
-										
 
-								<%
-										}
-										db.desconectar();
-									} catch (Exception e) {
-										e.printStackTrace();
-									}
+                                                                                <div class="card-content">
+                                                                                        <div class="img-logo">
+                                                                                                <img src="../src/partidos/<%=rs.getString(2)%>" alt="<%=rs.getString(2)%>">
+                                                                                        </div>
+                                                                                        <div class="nombre-partido">
+                                                                                                <h4><%=rs.getString(1)%></h4>
+                                                                                        </div>
+
+                                                                                </div>
+                                                                <%
+                                                                            }
+                                                                            db.desconectar();
+                                                                    } catch (Exception e) {
+                                                                            e.printStackTrace();
+                                                                    }
 								%>                
 							   </div>
 						</div>

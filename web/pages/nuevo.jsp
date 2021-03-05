@@ -1,3 +1,4 @@
+<%@page import="java.sql.SQLException"%>
 <%@page import="database.*"%>
 <html>
     <head>       
@@ -10,28 +11,36 @@ if ( request.getParameter("bt_crear") !=null ) {
                   try {
                     Dba db = new Dba(application.getRealPath("daw.mdb"));
 //                    Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
-                    db.conectar();                                         
-                    int contador=db.query.executeUpdate("insert into usuarios"
+                    db.conectar();
+                    String nombre = request.getParameter("ti_nombre");
+                    String apellido = request.getParameter("ti_apellidos");
+                    String usuario = request.getParameter("ti_usuario");
+                    String contrasena  = request.getParameter("ti_password");
+                    String query = ("INSERT into usuarios"
                                         + "(cuenta,nombres,apellidos,usuario,password) "
-                                        + "values('"+request.getParameter("ti_cuenta")+"'"
-                                        + ",'"+request.getParameter("ti_nombre")+"'"
-                                        + ",'"+request.getParameter("ti_apellidos")+"'"
-                                        + ",'"+request.getParameter("ti_usuario")+"'"
-                                        + ",'"+request.getParameter("ti_password")+"')");
-
-                    if(contador==1){
-                        out.print("<script>alert('el usuario se creo correctamente');</script>");
-                    }
-                    db.commit();
+                                        + "VALUES('"+request.getParameter("ti_cuenta")+"'"
+                                        + ",'"+ nombre +"'"
+                                        + ",'"+ apellido +"'"
+                                        + ",'"+ usuario +"'"
+                                        + ",'"+ contrasena + "')");
+                    
+                    db.query.executeUpdate(query);
+                    db.commit ();
                     db.desconectar();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    out.println("Actualizado");
+//                    if(contador==1){
+//                        out.print("<script>alert('el usuario se creo correctamente');</script>");
+//                    }
+                     
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    out.println("Inserting data failed!");
                 }    
 }
 %>
 <br>
         <br>
-        <a href="principal.jsp">Regresar</a>
+        <a href="listar.jsp">Regresar</a>
         <a href="index.jsp">Cerrar Sesión</a>
         <br>
         <h4>Nuevo Usuario</h4>
