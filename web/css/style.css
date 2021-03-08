@@ -203,15 +203,20 @@ input[type="submit"] {
 .card-content:hover{
 	transform: scale(1.09);
 }
-.img-logo{
+/* .img-logo{
 	width: 100px;
-}
+} */
 
 .img-logo img{
 	width: 100%;
     max-width: 250px;
     min-width: 250px;
 	height: 160px;
+	object-fit: cover
+}
+.img-logo-gestionar-partido img{
+	width: 20%;
+    max-width: 250px;
 	object-fit: cover
 }
 .nombre-partido{
@@ -230,7 +235,9 @@ input[type="submit"] {
 .col-lg-12.col-xl-6 {
     display: none;
 }
-
+tr.odd {
+    border-bottom: 0.5px solid #ececec;
+}
 @media only screen and (max-width: 769px) {
     .imagen-login {
         display: none;

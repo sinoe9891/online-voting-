@@ -81,11 +81,11 @@
                                             <h3>Partidos Políticos</h3>
                                         </div>
                                         <div style="text-align:right;width: 50%;">
-                                            <a href="nuevo_partido.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Agregar</span></button></a>
-                                            <button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
+                                            <a href="nuevo_partido.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>
+<!--                                            <button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
                                             <button class="btn add-new btn-warning mt-100" type="button"><span>Modificar</span></button>
                                             <button class="btn add-new btn-danger mt-100" type="button"><span>Eliminar</span></button>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </section>
@@ -94,9 +94,9 @@
                                     <div class="responsive">
                                         <%
                                             try {
-                                                Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+                                                Dba db = new Dba(application.getRealPath("/votacion_2021_honduras.mdb"));
                                                 db.conectar();
-                                                db.query.execute("select nombre, src_url_logo from usuarios");
+                                                db.query.execute("select nombre, src_url_logo from partidos_politicos");
                                                 ResultSet rs = db.query.getResultSet();
                                                 String centinela = "n";
                                                 while (rs.next()) {%>

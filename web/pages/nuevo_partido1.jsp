@@ -46,18 +46,7 @@
     <link rel="stylesheet" type="text/css" href="../src/app-assets/css/plugins/forms/form-validation.css">
     <link rel="stylesheet" type="text/css" href="../src/app-assets/css/pages/app-user.css"> -->
         <!-- END: Page CSS-->
-    </head>  
-
-    <script>
-        function mod(pid, pnp, pd, pep, pp, pe, pfv) {
-            var modal2 = document.getElementById("myModal");
-            document.getElementById("idh1").value = pid;
-            document.getElementById("ids1").value = pnp;
-            document.getElementById("ids2").value = pd;
-        }
-
-    </script>
-
+    </head>   
     <body>
         <div class="main-sidebar">
             <div class="container-login">
@@ -80,6 +69,7 @@
                         </ul>
                     </nav>
                 </div>
+
                 <div class="main-body-page"> 
                     <div class="content-wrapper">
                         <div class="content-body">
@@ -152,9 +142,13 @@
                                         </div>
                                     </section>
 
+
+
+
+
                                     <%
+                                        //ELIMINAR PRODUCTO 
                                         if (request.getParameter("p_eliminar") != null) {
-                                            //ELIMINAR PRODUCTO 
                                             try {
                                                 Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                 db.conectar();
@@ -170,19 +164,25 @@
                                         }
                                     %>
 
+
+
+
                                     <%
                                         //MODIFICAR un producto   
-                                        if (request.getParameter("bt_modificar") != null) {
+                                        if (request.getParameter("bt_actualizar") != null) {
                                             try {
                                                 Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                 db.conectar();
                                                 int contador = db.query.executeUpdate("UPDATE partidos_politicos "
-                                                        + "SET nombre='" + request.getParameter("ti_nombre_partido") + "',   "
-                                                        + "src_url_logo='" + request.getParameter("ti_url_logo") + "'"
+                                                        + "SET nombre =               '" + request.getParameter("nombre-modal-pardito") + "',   "
+                                                        + "src_url_logo =             '" + request.getParameter("url_logo_partido") + "'        "
                                                         + "WHERE id='" + request.getParameter("ti_id") + "' ");
 
+                                                //UPDATE partidos_politicos SET nombre = 'Danny', src_url_logo = '../src/partidos/partido_liberal.jpg' WHERE id = 1
                                                 if (contador >= 1) {
                                                     out.print("<script>alert('el usuario fue modificado correctamente');</script>");
+                                                } else {
+                                                    out.print("<script>alert('No sé actualizó');</script>");
                                                 }
                                                 db.commit();
                                                 db.desconectar();
@@ -195,58 +195,52 @@
                                     <section class="app-user-list">
                                         <div class="card">
                                             <div class="card-datatable table-responsive pt-0">
-
                                                 <table class="user-list-table ">
                                                     <thead class="thead-light">
                                                         <tr>
-
-                                                            <th data-field="id">ID</th>
-                                                            <th data-field="nombre" data-editable="false">BANDERA</th>
-                                                            <th data-field="descripcion" data-editable="false">NOMBRE</th>
-                                                            <th data-field="operaciones" data-editable="false">ACCIONES</th>
+                                                            <th>Bandera</th>
+                                                            <th>Nombre de Partido</th>
+                                                            <th>Gestionar</th>
+                                                                <%-- <th>Acción</th> --%>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-
-                                                        <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+                                                        <%
+                                                            Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                             db.conectar();
-                                                            db.query.execute("SELECT id,nombre,src_url_logo from partidos_politicos ORDER BY id ASC");
+                                                            db.query.execute("select id, nombre, src_url_logo from partidos_politicos");
                                                             ResultSet rs = db.query.getResultSet();
-                                                            String id, nombre, url;
+                                                            String id, nombre, url_bandera;
                                                             while (rs.next()) {
 
                                                                 id = rs.getString(1);
                                                                 nombre = rs.getString(2);
-                                                                url = rs.getString(3);
+                                                                url_bandera = rs.getString(3);
                                                         %>
+
                                                         <tr role="row" class="odd">
                                                             <td>
-                                                                <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=id%>
-                                                                </div>
-                                                            </td>
-                                                            <td>
                                                                 <div class="img-logo-gestionar-partido">
-                                                                    <img src="<%=url%>" alt="<%=url%>">
+                                                                    <img src="<%=rs.getString(3)%>" alt="<%=rs.getString(3)%>">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=nombre%>
+                                                                    <%=rs.getString(2)%>
                                                                 </div>
                                                             </td>
-                                                            <td> 
+                                                            <td>
                                                                 <div class="dropdown">
                                                                     <button type="button" class="btn btn-sm text-white dropdown-toggle hide-arrow" data-toggle="dropdown">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical" style="
                                                                              color: black;"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                                                     </button>
                                                                     <div class="dropdown-menu">
-                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id%>', '<%=nombre%>', '<%=url%>')">
+                                                                        <a class="dropdown-item"  onclick="mod('<%=rs.getString(1)%>', '<%=rs.getString(2)%>', '<%=rs.getString(3)%>')" data-toggle="modal" data-target="#inlineForm">
                                                                             <i data-feather="edit-2" class="mr-50"></i>
                                                                             <span>Modificar</span>
                                                                         </a>
-                                                                        <a class="dropdown-item" href="nuevo_partido.jsp?p_id=<%=id%>&p_eliminar=1">
+                                                                        <a class="dropdown-item" href="nuevo_partido.jsp?p_id=<%=rs.getString(1)%>&p_eliminar=1">
                                                                             <i data-feather="trash" class="mr-50"></i>
                                                                             <span>Eliminar</span>
                                                                         </a>
@@ -255,13 +249,43 @@
                                                             </td>
                                                         </tr>
                                                         <%  }%>
-
-
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-                                    </section>
+                                    </section
+
+
+                                    <!--Modal-->
+                                    <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+                                        <div d="myModal" class="modal-dialog modal-dialog-centered" role="document" i>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel33">Modificar Partido Político</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="nuevo_partido.jsp"name="fM1" method="POST">
+                                                    <input type="hidden" id="idh1" name="ti_id" value="" />
+                                                    <div class="modal-body">
+                                                        <label>Nombre Partido Político: </label>
+                                                        <div class="form-group">
+                                                            <input type="text" id="idh2" name="nombre_partido" value="" class="form-control" />
+                                                        </div>
+
+                                                        <label>URL de Bandera: </label>
+                                                        <div class="form-group">
+                                                            <input type="url" id="idh3" name="url-modal-logo" value="" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" name="bt_actualizar" class="btn btn-primary" data-dismiss="modal">Actualizar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </section>
                         </div>
@@ -269,48 +293,20 @@
                 </div>
             </div>
         </div>
+        <script>
+            function mod(idPartido, nombre, url) {
+                var modal2 = document.getElementById("inlineForm");
+                document.getElementById("idh1").value = idPartido;
+                document.getElementById("idh2").value = nombre;
+                document.getElementById("idh3").value = url;
+            }
 
-        <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-            <div d="myModal" class="modal-dialog modal-dialog-centered" role="document" i>
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel33">Modificar Partido Político</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form name="fM1" action="nuevo_partido.jsp" method="POST">
-                        <input type="hidden" id="idh1" name="ti_id" value="" />
-                        <div class="modal-body">
-                            <label>Nombre Partido Político: </label>
-                            <div class="form-group">
-                                <input id="ids1" type="text" name="ti_nombre_partido" value="" class="form-control"/>
-                            </div>
+            console.log(idPartido);
 
-                            <label>URL de Bandera: </label>
-                            <div class="form-group">
-                                <input id="ids2" type="text" name="ti_url_logo" value="" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="submit" value="Modificar Producto" name="bt_modificar" /><br>    
-                            <!--<button type="button" name="bt_modificar" class="btn btn-primary" data-dismiss="modal">Actualizar</button>-->
-                        </div>
-                    </form>    
-                </div>
-            </div>
-        </div>
+        </script>
 
 
-
-
-
-
-        <!-- BEGIN: Vendor JS-->
         <script src="../src/app-assets/vendors/js/vendors.min.js"></script>
-        <!-- BEGIN Vendor JS-->
-
-        <!-- BEGIN: Page Vendor JS-->
         <script src="../src/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
         <script src="../src/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
         <script src="../src/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
@@ -328,7 +324,5 @@
         <!-- BEGIN: Page JS-->
         <script src="../src/app-assets/js/scripts/pages/app-user-list.js"></script>
         <!-- END: Page JS-->
-
     </body>
-
 </html>
