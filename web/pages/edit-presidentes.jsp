@@ -49,11 +49,12 @@
     </head>  
 
     <script>
-        function mod(pid, pnp, pd, pep, pp, pe, pfv) {
+        function mod(pid, pnp, pd, pep) {
             var modal2 = document.getElementById("myModal");
             document.getElementById("idh1").value = pid;
             document.getElementById("ids1").value = pnp;
             document.getElementById("ids2").value = pd;
+            document.getElementById("ids3").value = pep;
         }
 
     </script>
@@ -125,31 +126,7 @@
                                             }
                                         }
                                     %>
-
-                                    <section class="app-user-list">
-                                        <div class="card">
-
-                                            <div class="nav-header">
-                                                <div style="text-align:left;width: 100%;">
-                                                    <form name="f1" action="edit-presidentes.jsp" method="POST">
-                                                        <div class="modal-body flex-grow-1">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="name-presidente">Nombre del Candidato</label>
-                                                                <input type="text" name="nombre_presidente" class="form-control dt-full-name" id="basic-icon-default-fullname" placeholder="Nombre Completo" >
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="enlace-url">Fotografía Oficial</label>
-                                                                <input type="text" name="url_photo_oficial"  id="basic-icon-default-uname" class="form-control dt-uname" placeholder=".jpg, .png" >
-                                                            </div>
-
-                                                            <button type="submit" class="btn btn-primary mr-1 data-submit waves-effect waves-float waves-light" value="crear" name="bt_crear">Crear</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-
+                                    
                                     <%
                                         if (request.getParameter("p_eliminar") != null) {
                                             //ELIMINAR PRODUCTO 
@@ -179,10 +156,12 @@
                                                 db.conectar();
                                                 int contador = db.query.executeUpdate("UPDATE presidente "
                                                         + "SET nombre_presidente='" + request.getParameter("ti_nombre_presidente") + "',   "
-                                                        + "photo_profile='" + request.getParameter("ti_url_photo") + "'"
+                                                        + "photo_profile='" + request.getParameter("ti_url_photo") + "',   "
+                                                        + "genero_presidente='" + request.getParameter("genero_presidente") + "'"
                                                         + "WHERE id_presidente='" + request.getParameter("ti_id") + "' ");
                                                 if (contador >= 1) {
                                                     String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>El registro se modificó correctamente</h4></div>";
+                                                    out.print(alerta);
                                                 }
                                                 db.commit();
                                                 db.desconectar();
@@ -193,7 +172,30 @@
                                             }
                                         }
                                     %>
+                                    <section class="app-user-list">
+                                        <div class="card">
 
+                                            <div class="nav-header">
+                                                <div style="text-align:left;width: 100%;">
+                                                    <form name="f1" action="edit-presidentes.jsp" method="POST">
+                                                        <div class="modal-body flex-grow-1">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="name-presidente">Nombre del Candidato</label>
+                                                                <input type="text" name="nombre_presidente" class="form-control dt-full-name" id="basic-icon-default-fullname" placeholder="Nombre Completo" >
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="enlace-url">Fotografía Oficial</label>
+                                                                <input type="text" name="url_photo_oficial"  id="basic-icon-default-uname" class="form-control dt-uname" placeholder=".jpg, .png" >
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-primary mr-1 data-submit waves-effect waves-float waves-light" value="crear" name="bt_crear">Crear</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    
                                     <section class="app-user-list">
                                         <div class="card">
                                             <div class="card-datatable table-responsive pt-0">
@@ -259,7 +261,7 @@
                                                                              color: black;"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                                                     </button>
                                                                     <div class="dropdown-menu">
-                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id_presidente%>', '<%=nombre%>', '<%=photo%>')">
+                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id_presidente%>', '<%=nombre%>', '<%=photo%>', '<%=genero%>')">
                                                                             <i data-feather="edit-2" class="mr-50"></i>
                                                                             <span>Modificar</span>
                                                                         </a>
@@ -286,7 +288,7 @@
                 </div>
             </div>
         </div>
-
+        <!--Modal-->
         <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
             <div d="myModal" class="modal-dialog modal-dialog-centered" role="document" i>
                 <div class="modal-content">
@@ -307,6 +309,11 @@
                             <label>URL de Bandera: </label>
                             <div class="form-group">
                                 <input id="ids2" type="text" name="ti_url_photo" value="" class="form-control"/>
+                            </div>
+                            
+                            <label>Género: </label>
+                            <div class="form-group">
+                                <input id="ids3" type="text" name="genero_presidente" value="" class="form-control"/>
                             </div>
                         </div>
                         <div class="modal-footer">
