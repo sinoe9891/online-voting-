@@ -100,6 +100,7 @@
                             <section class="app-user-list">
                                 <div class="card">
                                     <%
+                                        //AGREGAR REGISTRO-----------------------------------------------
                                         if (request.getParameter("bt_crear") != null) {
                                             try {
                                                 Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
@@ -107,12 +108,16 @@
 
                                                 String nombre_presidente = request.getParameter("nombre_presidente");
                                                 String url_logo_partido = request.getParameter("url_photo_oficial");
+                                                String genero_president = request.getParameter("genero_presi");
+                                                String id_parti_president = request.getParameter("partido_presi");
 
                                                 int contador = db.query.executeUpdate("INSERT into presidente"
-                                                        + "(nombre_presidente,photo_profile) "
+                                                        + "(nombre_presidente,photo_profile,genero_presidente,id_parti_presidente) "
                                                         + "VALUES('"
                                                         + nombre_presidente + "'"
-                                                        + ",'" + url_logo_partido
+                                                        + ",'" + url_logo_partido + "'"
+                                                        + ",'" + genero_president + "'"
+                                                        + ",'" + id_parti_president
                                                         + "')");
 
                                                 db.commit();
@@ -122,14 +127,17 @@
                                                     out.print(alerta);
                                                 }
                                             } catch (Exception e) {
+                                                 String alerta = "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>Registro no se creó</h4></div>";
+                                                out.print(alerta);
                                                 e.printStackTrace();
                                             }
                                         }
                                     %>
+
                                     
                                     <%
                                         if (request.getParameter("p_eliminar") != null) {
-                                            //ELIMINAR PRODUCTO 
+                                            //ELIMINAR PRODUCTO----------------------------------------------- 
                                             try {
                                                 Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                 db.conectar();
@@ -148,8 +156,9 @@
                                         }
                                     %>
 
+                                    
                                     <%
-                                        //MODIFICAR un producto   
+                                        //MODIFICAR un producto-----------------------------------------------   
                                         if (request.getParameter("bt_modificar") != null) {
                                             try {
                                                 Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
@@ -188,6 +197,39 @@
                                                                 <input type="text" name="url_photo_oficial"  id="basic-icon-default-uname" class="form-control dt-uname" placeholder=".jpg, .png" >
                                                             </div>
 
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="enlace-url">Género</label>
+                                                                <select class="form-control" id="basicSelect" name="genero_presi">
+                                                                    <option value="M">
+                                                                        Masculina
+                                                                    </option>
+                                                                    <option value="F">
+                                                                        Femenina
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="basicSelect">Partido Político</label>
+                                                                <select class="form-control" id="basicSelect" name="partido_presi">
+                                                                    <% Dba dba = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+                                                                        dba.conectar();
+                                                                        dba.query.execute("SELECT nombre, id from partidos_politicos ORDER BY id ASC");
+                                                                        ResultSet rsdb = dba.query.getResultSet();
+                                                                        String nombre_partido;
+                                                                        String id_partido;
+                                                                        while (rsdb.next()) {
+
+                                                                            nombre_partido = rsdb.getString(1);
+                                                                            id_partido = rsdb.getString(2);
+                                                                    %>
+                                                                    <option value="<%=id_partido%>">
+                                                                        <%=nombre_partido%>
+                                                                    </option>
+                                                                    <%  }%> 
+                                                                </select>
+                                                            </div>
+
                                                             <button type="submit" class="btn btn-primary mr-1 data-submit waves-effect waves-float waves-light" value="crear" name="bt_crear">Crear</button>
                                                         </div>
                                                     </form>
@@ -195,7 +237,7 @@
                                             </div>
                                         </div>
                                     </section>
-                                    
+
                                     <section class="app-user-list">
                                         <div class="card">
                                             <div class="card-datatable table-responsive pt-0">
@@ -207,8 +249,8 @@
                                                             <th data-field="id">ID</th>
                                                             <th data-field="nombre" data-editable="false">FOTO</th>
                                                             <th data-field="descripcion" data-editable="false">NOMBRE</th>
-                                                            <th data-field="operaciones" data-editable="false">GENERO</th>
                                                             <th data-field="operaciones" data-editable="false">PARTIDO</th>
+                                                            <th data-field="operaciones" data-editable="false">GENERO</th>
                                                             <th data-field="operaciones" data-editable="false">ACCIONES</th>
                                                         </tr>
                                                     </thead>
@@ -246,12 +288,12 @@
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=genero%>
+                                                                    <%=partido_politico%>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=partido_politico%>
+                                                                    <%=genero%>
                                                                 </div>
                                                             </td>
                                                             <td> 
@@ -310,7 +352,7 @@
                             <div class="form-group">
                                 <input id="ids2" type="text" name="ti_url_photo" value="" class="form-control"/>
                             </div>
-                            
+
                             <label>Género: </label>
                             <div class="form-group">
                                 <input id="ids3" type="text" name="genero_presidente" value="" class="form-control"/>
