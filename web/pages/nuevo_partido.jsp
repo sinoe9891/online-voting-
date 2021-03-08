@@ -132,6 +132,7 @@
                                             <div class="nav-header">
                                                 <div style="text-align:left;width: 100%;">
                                                     <form name="f1" action="nuevo_partido.jsp" method="POST">
+                                                        <h3>Agregar Partido Político</h3>
                                                         <div class="modal-body flex-grow-1">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="name-partido">Nombre del Partido Político</label>
@@ -168,7 +169,7 @@
                                                 }
                                             } catch (Exception e) {
                                                 String alerta = "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>Registro Eliminado</h4></div>";
-                                                    out.print(alerta);
+                                                out.print(alerta);
                                                 e.printStackTrace();
                                             }
                                         }
@@ -192,8 +193,8 @@
                                                 db.commit();
                                                 db.desconectar();
                                             } catch (Exception e) {
-                                                    String alerta = "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>El registro no se modificó</h4></div>";
-                                                    out.print(alerta);
+                                                String alerta = "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>El registro no se modificó</h4></div>";
+                                                out.print(alerta);
                                                 e.printStackTrace();
                                             }
                                         }
@@ -202,7 +203,7 @@
                                     <section class="app-user-list">
                                         <div class="card">
                                             <div class="card-datatable table-responsive pt-0">
-
+                                                <h3>Lista de Partidos Políticos</h3>
                                                 <table class="user-list-table ">
                                                     <thead class="thead-light">
                                                         <tr>

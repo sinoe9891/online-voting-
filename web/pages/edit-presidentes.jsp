@@ -110,13 +110,15 @@
                                                 String url_logo_partido = request.getParameter("url_photo_oficial");
                                                 String genero_president = request.getParameter("genero_presi");
                                                 String id_parti_president = request.getParameter("partido_presi");
+                                                String nombre_movimiento = request.getParameter("nombre_movimiento");
 
                                                 int contador = db.query.executeUpdate("INSERT into presidente"
-                                                        + "(nombre_presidente,photo_profile,genero_presidente,id_parti_presidente) "
+                                                        + "(nombre_presidente,photo_profile,genero_presidente,nombre_movimiento_partido,id_parti_presidente) "
                                                         + "VALUES('"
                                                         + nombre_presidente + "'"
                                                         + ",'" + url_logo_partido + "'"
                                                         + ",'" + genero_president + "'"
+                                                        + ",'" + nombre_movimiento + "'"
                                                         + ",'" + id_parti_president
                                                         + "')");
 
@@ -187,6 +189,7 @@
                                             <div class="nav-header">
                                                 <div style="text-align:left;width: 100%;">
                                                     <form name="f1" action="edit-presidentes.jsp" method="POST">
+                                                        <h3>Agregar Candidato Presidencial</h3>
                                                         <div class="modal-body flex-grow-1">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="name-presidente">Nombre del Candidato</label>
@@ -229,7 +232,10 @@
                                                                     <%  }%> 
                                                                 </select>
                                                             </div>
-
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="enlace-url">Nombre Movimiento</label>
+                                                                <input type="text" name="nombre_movimiento"  id="basic-icon-default-uname" class="form-control dt-uname" placeholder="Nombre Movimiento" >
+                                                            </div>  
                                                             <button type="submit" class="btn btn-primary mr-1 data-submit waves-effect waves-float waves-light" value="crear" name="bt_crear">Crear</button>
                                                         </div>
                                                     </form>
@@ -241,15 +247,16 @@
                                     <section class="app-user-list">
                                         <div class="card">
                                             <div class="card-datatable table-responsive pt-0">
-
+                                                <h3>Lista de Presidentes</h3>
                                                 <table class="user-list-table ">
                                                     <thead class="thead-light">
                                                         <tr>
 
-                                                            <th data-field="id">ID</th>
+                                                            <!--<th data-field="id">ID</th>-->
                                                             <th data-field="nombre" data-editable="false">FOTO</th>
                                                             <th data-field="descripcion" data-editable="false">NOMBRE</th>
                                                             <th data-field="operaciones" data-editable="false">PARTIDO</th>
+                                                            <th data-field="operaciones" data-editable="false">NOMBRE MOVIMIENTO</th>
                                                             <th data-field="operaciones" data-editable="false">GENERO</th>
                                                             <th data-field="operaciones" data-editable="false">ACCIONES</th>
                                                         </tr>
@@ -258,27 +265,29 @@
 
                                                         <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                             db.conectar();
-                                                            db.query.execute("SELECT id_presidente, nombre_presidente, photo_profile, src_url_logo_movimiento, genero_presidente, id_parti_presidente from presidente ORDER BY id_presidente ASC");
+                                                            db.query.execute("SELECT a.id_presidente, a.nombre_presidente, a.photo_profile, a.src_url_logo_movimiento, a.genero_presidente, a.id_parti_presidente, a.nombre_movimiento_partido, b.id, b.nombre, b.src_url_logo FROM presidente a, partidos_politicos b WHERE a.id_parti_presidente = b.id  ORDER BY a.id_presidente DESC");
                                                             ResultSet rs = db.query.getResultSet();
-                                                            String id_presidente, nombre, photo, url_logo, genero, partido_politico;
+                                                            String id_presidente, nombre, photo, url_logo, genero, partido_politico, nombre_movimiento, src_url_logo;
                                                             while (rs.next()) {
 
                                                                 id_presidente = rs.getString(1);
-                                                                partido_politico = rs.getString(6);
+                                                                partido_politico = rs.getString(9);
                                                                 nombre = rs.getString(2);
                                                                 photo = rs.getString(3);
                                                                 url_logo = rs.getString(4);
                                                                 genero = rs.getString(5);
+                                                                nombre_movimiento = rs.getString(7);
+                                                                src_url_logo = rs.getString(10);
                                                         %>
                                                         <tr role="row" class="odd">
-                                                            <td>
+<!--                                                            <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
                                                                     <%=id_presidente%>
                                                                 </div>
-                                                            </td>
+                                                            </td>-->
                                                             <td>
                                                                 <div class="img-logo-gestionar-partido">
-                                                                    <img src="<%=photo%>" alt="<%=photo%>">
+                                                                    <img src="<%=photo%>" alt="<%=photo%>" style="width: 60% !important;">
                                                                 </div>
                                                             </td>
                                                             <td>
@@ -289,6 +298,12 @@
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
                                                                     <%=partido_politico%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                
+                                                                    <%=nombre_movimiento%>
                                                                 </div>
                                                             </td>
                                                             <td>
