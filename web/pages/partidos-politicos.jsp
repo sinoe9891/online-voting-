@@ -84,8 +84,8 @@
                                             <a href="nuevo_partido.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>
 <!--                                            <button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
                                             <button class="btn add-new btn-warning mt-100" type="button"><span>Modificar</span></button>
-                                            <button class="btn add-new btn-danger mt-100" type="button"><span>Eliminar</span></button>
-                                        </div>-->
+                                            <button class="btn add-new btn-danger mt-100" type="button"><span>Eliminar</span></button>-->
+                                        </div>
                                     </div>
                                 </div>
                             </section>
