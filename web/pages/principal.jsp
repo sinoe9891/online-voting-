@@ -3,9 +3,7 @@
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 %>
-
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%> -->
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="es">
 
@@ -44,7 +42,6 @@
 <body>
 	<div class="main-sidebar">
 		<div class="container-login">
-
 			<div class="sidebar-main">
 				<div class="img-log">
 					<img class="logo-plat-sidebar" src="src/img/Votem_Logo_Primary_Navy.png" alt="">

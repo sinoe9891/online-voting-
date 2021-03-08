@@ -87,11 +87,11 @@
                                 <div class="card">
                                     <div class="nav-header">
                                         <div style="width: 100%;">
-                                            <h3>Gestionar</h3>
-                                            <div style="display: flex;justify-content: space-between;">
+                                            <div style="display: flex;justify-content: space-between;margin:5px 0 15px 0">
                                                 <a href="partidos-politicos.jsp"><i class="fas fa-arrow-left"></i>Regresar</a>
                                                 <a href="../index.jsp"><i class="fas fa-sign-out-alt"></i>Cerrar Sesión</a>
                                             </div>
+                                            <h3>Gestionar Partidos Políticos</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -186,11 +186,14 @@
                                                         + "WHERE id='" + request.getParameter("ti_id") + "' ");
 
                                                 if (contador >= 1) {
-                                                    out.print("<script>alert('el usuario fue modificado correctamente');</script>");
+                                                    String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>El registro se modificó correctamente</h4></div>";
+                                                    out.print(alerta);
                                                 }
                                                 db.commit();
                                                 db.desconectar();
                                             } catch (Exception e) {
+                                                    String alerta = "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>El registro no se modificó</h4></div>";
+                                                    out.print(alerta);
                                                 e.printStackTrace();
                                             }
                                         }
