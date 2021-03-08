@@ -117,7 +117,8 @@
                                                 db.commit();
                                                 db.desconectar();
                                                 if (contador == 1) {
-                                                    out.println("Actualizado");
+                                                    String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>Partido Político Se agregó con éxito</h4></div>";
+                                                    out.print(alerta);
                                                 }
                                             } catch (Exception e) {
                                                 e.printStackTrace();
@@ -162,9 +163,12 @@
                                                 db.commit();
                                                 db.desconectar();
                                                 if (contador >= 1) {
-                                                    out.print("<script>alert('el usuario fue Elimnado correctamente');</script>");
+                                                    String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>Registro Eliminado</h4></div>";
+                                                    out.print(alerta);
                                                 }
                                             } catch (Exception e) {
+                                                String alerta = "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>Registro Eliminado</h4></div>";
+                                                    out.print(alerta);
                                                 e.printStackTrace();
                                             }
                                         }
