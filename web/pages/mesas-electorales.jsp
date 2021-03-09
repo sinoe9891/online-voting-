@@ -47,7 +47,7 @@
     <link rel="stylesheet" type="text/css" href="../src/app-assets/css/pages/app-user.css"> -->
         <!-- END: Page CSS-->
         <style>
-            .partidos a{
+            .mesas a{
                 color:#c3151c;
             }
         </style>
@@ -59,16 +59,15 @@
                 <div class="main-body-page"> 
                     <div class="content-wrapper">
                         <div class="content-body">
-                            <!-- users list start -->
                             <section class="app-user-list">
                                 <div class="card">
                                     <div class="nav-header">
                                         <div style="width: 50%;">
-                                            <h3>Partidos Políticos</h3>
+                                            <h3>Candidatos Presidenciales</h3>
                                         </div>
                                         <div style="text-align:right;width: 50%;">
-                                            <a href="nuevo_partido.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>
-<!--                                            <button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
+                                            <a href="edit-presidentes.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>
+                                        <!--<button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
                                             <button class="btn add-new btn-warning mt-100" type="button"><span>Modificar</span></button>
                                             <button class="btn add-new btn-danger mt-100" type="button"><span>Eliminar</span></button>-->
                                         </div>
@@ -80,12 +79,12 @@
                                     <div class="responsive">
                                         <%
                                             try {
-                                                Dba db = new Dba(application.getRealPath("/votacion_2021_honduras.mdb"));
+                                                Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                 db.conectar();
-                                                db.query.execute("select nombre, src_url_logo from partidos_politicos");
+                                                db.query.execute("select nombre_presidente, photo_profile, src_url_logo_movimiento, genero_presidente from presidente");
                                                 ResultSet rs = db.query.getResultSet();
                                                 String centinela = "n";
-                                                while (rs.next()) {%>
+                                                                                while (rs.next()) {%>
                                         <div class="card-content">
                                             <div class="img-logo">
                                                 <img src="<%=rs.getString(2)%>" alt="<%=rs.getString(2)%>">
@@ -93,16 +92,14 @@
                                             <div class="nombre-partido">
                                                 <h4><%=rs.getString(1)%></h4>
                                             </div>
-
                                         </div>
-
                                         <%
                                                 }
                                                 db.desconectar();
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
-                                        %>                                                                   
+                                        %>                
                                     </div>
                                 </div>
                             </section>
