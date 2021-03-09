@@ -56,7 +56,7 @@
                             <li class="nav-item"><a href="#"><i class="fas fa-user-friends"></i>Alcaldes</li></a>
                             <li class="nav-item"><a href="#"><i class="fas fa-users"></i>Diputados</li></a>
                             <li class="nav-item"><a href="pages/mesas-electorales.jsp"><i class="fas fa-person-booth"></i>Mesas Electorales</li></a>
-                            <li class="nav-item"><a href="#"><i class="fas fa-users"></i>Votantes</li></a>
+                            <li class="nav-item"><a href="pages/votantes.jsp"><i class="fas fa-users"></i>Votantes</li></a>
                             <li class="nav-item"><a href="pages/usuarios.jsp"><i class="fas fa-user-cog"></i>Usuarios</li></a>
                             <li class="nav-item header-item">TÍTULO</li>
                             <li class="nav-item"><a href="#"><i class="fas fa-poll"></i>Métricas</li></a>
