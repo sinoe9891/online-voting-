@@ -6,7 +6,7 @@
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<html lang="es">
 
     <head>
         <meta charset="UTF-8">
@@ -41,11 +41,10 @@
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/dark-layout.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/bordered-layout.css">
 
-        <!-- BEGIN: Page CSS-->
-        <!-- <link rel="stylesheet" type="text/css" href="../src/app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="../src/app-assets/css/plugins/forms/form-validation.css">
-    <link rel="stylesheet" type="text/css" href="../src/app-assets/css/pages/app-user.css"> -->
-        <!-- END: Page CSS-->
+        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
+        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>-->
+
+
         <style>
             .mesas a{
                 color:#c3151c;
@@ -76,72 +75,73 @@
                             </section>
                             <section class="app-user-list">
                                 <div class="card">
-                                    <section class="app-user-list">
-                                        <div class="card">
-                                            <div class="card-datatable table-responsive pt-0">
-                                                <h3>Mesas Electorales</h3>
-                                                <table class="user-list-table ">
-                                                    <thead class="thead-light">
-                                                        <tr>
-
-                                                            <!--<th data-field="id">ID</th>-->
-                                                            <th data-field="nombre" data-editable="false">NÚMERO DE MESA</th>
-                                                            <th data-field="operaciones" data-editable="false">CENTRO DE VOTACIÓN</th>
-                                                            <th data-field="operaciones" data-editable="false">SECTOR DOMICILIO</th>
-                                                            <th data-field="descripcion" data-editable="false">DEPARTAMENTO</th>
-                                                            <th data-field="operaciones" data-editable="false">MUNICIPIO</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                        <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
-                                                            db.conectar();
-                                                            db.query.execute("SELECT a.id_mesa, a.numero_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.nombre_sector_domicilio FROM mesas_electorales a, departamentos b, municipios c WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
-                                                            ResultSet rs = db.query.getResultSet();
-                                                            String id_mesa, codigo_mesa, centro_de_votacion, nombre_departamento, nombre_municipio, nombre_sector_domicilio;
-                                                            while (rs.next()) {
-
-                                                                id_mesa = rs.getString(1);
-                                                                codigo_mesa = rs.getString(2);
-                                                                centro_de_votacion = rs.getString(3);
-                                                                nombre_departamento = rs.getString(4);
-                                                                nombre_municipio = rs.getString(5);
-                                                                nombre_sector_domicilio = rs.getString(6);
-                                                        %>
-                                                        <tr role="row" class="odd">
-                                                            <td>
-                                                                <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=codigo_mesa%>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=centro_de_votacion%>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=nombre_sector_domicilio%>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex justify-content-left align-items-center">
-
-                                                                    <%=nombre_departamento%>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=nombre_municipio%>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <%  }%>
-                                                    </tbody> 
-                                                </table>
-                                            </div>
+                                    <div class="card-datatable table-responsive pt-0" style='padding: 1rem; !important'>
+                                        <div class="card-header border-bottom">
+                                            <h4 class="card-title">Mesas Electorales</h4>
                                         </div>
-                                    </section>
+                                        <table class="user-list-table "  id="datatable">
+                                            <thead class="thead-light">
+                                                <tr class = "thead-dark">
+                                                    <th data-field="nombre" data-editable="false">NÚMERO DE MESA</th>
+                                                    <th data-field="operaciones" data-editable="false">CENTRO DE VOTACIÓN</th>
+                                                    <th data-field="operaciones" data-editable="false">SECTOR DOMICILIO</th>
+                                                    <th data-field="descripcion" data-editable="false">DEPARTAMENTO</th>
+                                                    <th data-field="operaciones" data-editable="false">MUNICIPIO</th>
+                                                    <th data-field="operaciones" data-editable="false">UBICACIÓN</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+                                                    db.conectar();
+                                                    db.query.execute("SELECT a.id_mesa, a.numero_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.nombre_sector_domicilio FROM mesas_electorales a, departamentos b, municipios c WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
+                                                    ResultSet rs = db.query.getResultSet();
+                                                    String id_mesa, codigo_mesa, centro_de_votacion, nombre_departamento, nombre_municipio, nombre_sector_domicilio;
+                                                    while (rs.next()) {
+
+                                                        id_mesa = rs.getString(1);
+                                                        codigo_mesa = rs.getString(2);
+                                                        centro_de_votacion = rs.getString(3);
+                                                        nombre_departamento = rs.getString(4);
+                                                        nombre_municipio = rs.getString(5);
+                                                        nombre_sector_domicilio = rs.getString(6);
+                                                %>
+                                                <tr role="row" class="odd">
+                                                    <td>
+                                                        <div class="d-flex justify-content-left align-items-center">
+                                                            <%=codigo_mesa%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex justify-content-left align-items-center">
+                                                            <%=centro_de_votacion%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex justify-content-left align-items-center">
+                                                            <%=nombre_sector_domicilio%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex justify-content-left align-items-center">
+
+                                                            <%=nombre_departamento%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex justify-content-left align-items-center">
+                                                            <%=nombre_municipio%>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex justify-content-left align-items-center">
+                                                            <a href="#"> Ver ubicación</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <%  }%>
+                                            </tbody> 
+                                        </table>
+                                    </div>
                                 </div>
                             </section>
                         </div>
@@ -149,6 +149,13 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
+        <script>
+            $("#datatable").DataTable();
+        </script>
         <!-- BEGIN: Vendor JS-->
         <script src="../src/app-assets/vendors/js/vendors.min.js"></script>
         <!-- BEGIN Vendor JS-->
@@ -158,11 +165,22 @@
         <script src="../src/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
         <script src="../src/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
         <script src="../src/app-assets/vendors/js/tables/datatable/responsive.bootstrap4.js"></script>
+        <!--<script src="../src/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>-->
         <script src="../src/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
         <script src="../src/app-assets/vendors/js/tables/datatable/buttons.bootstrap4.min.js"></script>
         <script src="../src/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
+        <script src="../src/app-assets/js/scripts/tables/table-datatables-advanced.js"></script>
         <!-- END: Page Vendor JS-->
-
+        <script>
+            $(window).on('load', function () {
+                if (feather) {
+                    feather.replace({
+                        width: 14,
+                        height: 14
+                    });
+                }
+            })
+        </script> 
         <!-- BEGIN: Theme JS-->
         <script src="../src/app-assets/js/core/app-menu.js"></script>
         <script src="../src/app-assets/js/core/app.js"></script>

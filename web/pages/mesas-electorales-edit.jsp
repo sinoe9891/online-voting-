@@ -41,6 +41,8 @@
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/dark-layout.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/bordered-layout.css">
 
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+        
         <!-- BEGIN: Page CSS-->
         <!-- <link rel="stylesheet" type="text/css" href="../src/app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="../src/app-assets/css/plugins/forms/form-validation.css">
@@ -54,15 +56,13 @@
     </head>  
 
     <script>
-        function mod(pid, pnp, pd, pep) {
+        function mod(pid, pnp, pd, pep, log) {
             var modal2 = document.getElementById("myModal");
             document.getElementById("idh1").value = pid;
             document.getElementById("ids1").value = pnp;
             document.getElementById("ids2").value = pd;
             document.getElementById("ids3").value = pep;
-            console.log(pid);
-            console.log(pnp);
-            console.log(pd);
+            document.getElementById("ids3").value = log;
         }
 
     </script>
@@ -112,7 +112,7 @@
                                                         + ",'" + id_departamento_mesa + "'"
                                                         + ",'" + id_municipio_mesa
                                                         + "')");
-                                                
+
                                                 request.setCharacterEncoding("UTF-8");
 
                                                 db.commit();
@@ -161,7 +161,8 @@
                                                 int contador = db.query.executeUpdate("UPDATE mesas_electorales "
                                                         + "SET centro_de_votacion='" + request.getParameter("ti_nombre_presidente") + "',   "
                                                         + "nombre_sector_domicilio='" + request.getParameter("ti_url_photo") + "',   "
-                                                        + "latitud='" + request.getParameter("genero_presidente") + "'"
+                                                        + "latitud='" + request.getParameter("latitud_mesa") + "',   "
+                                                        + "longitud='" + request.getParameter("longitud_mesa") + "'"
                                                         + "WHERE id_mesa='" + request.getParameter("ti_id") + "' ");
                                                 if (contador >= 1) {
                                                     String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>El registro se modificó correctamente</h4></div>";
@@ -264,6 +265,7 @@
                                                             <th data-field="operaciones" data-editable="false">SECTOR DOMICILIO</th>
                                                             <th data-field="descripcion" data-editable="false">DEPARTAMENTO</th>
                                                             <th data-field="operaciones" data-editable="false">MUNICIPIO</th>
+                                                            <th data-field="operaciones" data-editable="false">COORDENADAS</th>
                                                             <th data-field="operaciones" data-editable="false">ACCIONES</th>
                                                         </tr>
                                                     </thead>
@@ -271,12 +273,12 @@
 
                                                         <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                             db.conectar();
-                                                            db.query.execute("SELECT a.id_mesa, a.numero_mesa, a.nombre_sector_domicilio, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.latitud "
+                                                            db.query.execute("SELECT a.id_mesa, a.numero_mesa, a.nombre_sector_domicilio, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.latitud, a.longitud "
                                                                     + "FROM mesas_electorales a, departamentos b, municipios c "
                                                                     + "WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio "
                                                                     + "ORDER BY a.id_mesa DESC");
                                                             ResultSet rs = db.query.getResultSet();
-                                                            String id_mesa, codigo_mesa, nombre_sector_domicilio, centro_de_votacion, nombre_departamento, nombre_municipio, latitud_centro;
+                                                            String id_mesa, codigo_mesa, nombre_sector_domicilio, centro_de_votacion, nombre_departamento, nombre_municipio, latitud_centro, longitud_centro;
                                                             while (rs.next()) {
 
                                                                 id_mesa = rs.getString(1);
@@ -286,6 +288,7 @@
                                                                 nombre_departamento = rs.getString(5);
                                                                 nombre_municipio = rs.getString(6);
                                                                 latitud_centro = rs.getString(7);
+                                                                longitud_centro = rs.getString(8);
                                                         %>
                                                         <tr role="row" class="odd">
                                                             <td>
@@ -305,13 +308,17 @@
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
-
                                                                     <%=nombre_departamento%>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
                                                                     <%=nombre_municipio%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                    <%=latitud_centro%>,<%=longitud_centro%>
                                                                 </div>
                                                             </td>
                                                             <td> 
@@ -321,7 +328,7 @@
                                                                              color: black;"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                                                     </button>
                                                                     <div class="dropdown-menu">
-                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id_mesa%>', '<%=centro_de_votacion%>', '<%=nombre_sector_domicilio%>', '<%=latitud_centro%>')">
+                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id_mesa%>', '<%=centro_de_votacion%>', '<%=nombre_sector_domicilio%>', '<%=latitud_centro%>', '<%=longitud_centro%>')">
                                                                             <i data-feather="edit-2" class="mr-50"></i>
                                                                             <span>Modificar</span>
                                                                         </a>
@@ -332,9 +339,13 @@
                                                                     </div>
                                                                 </div>
                                                             </td>
+                                                            <td>
+
+                                                            </td>
                                                         </tr>
-                                                        <%  }%>
+
                                                     </tbody>
+                                                    <%  }%>
                                                 </table>
                                             </div>
                                         </div>
@@ -373,7 +384,12 @@
 
                             <label>Latitud </label>
                             <div class="form-group">
-                                <input id="ids3" type="text" name="genero_presidente" value="" class="form-control"/>
+                                <input id="ids3" type="text" name="latitud_mesa" value="" class="form-control"/>
+                            </div>
+
+                            <label>Longitud </label>
+                            <div class="form-group">
+                                <input id="ids4" type="text" name="longitud_mesa" value="" class="form-control"/>
                             </div>
                         </div>
                         <div class="modal-footer">
