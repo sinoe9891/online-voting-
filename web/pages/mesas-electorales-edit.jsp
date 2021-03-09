@@ -47,7 +47,7 @@
     <link rel="stylesheet" type="text/css" href="../src/app-assets/css/pages/app-user.css"> -->
         <!-- END: Page CSS-->
         <style>
-            .presidente a{
+            .mesas a{
                 color:#c3151c;
             }
         </style>
