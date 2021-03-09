@@ -3,6 +3,7 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class Dba {
     private String base_datos;
@@ -19,7 +20,9 @@ public class Dba {
     
    public void conectar(){
         try {
+            Properties props = new Properties();
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            props.put ("charSet", "UTF-8");
             String driver = "jdbc:ucanaccess://";
             dbcon = DriverManager.getConnection(driver+base_datos,"","");
             query = dbcon.createStatement();

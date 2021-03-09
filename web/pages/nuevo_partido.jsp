@@ -88,7 +88,7 @@
                                     <%
                                         if (request.getParameter("bt_crear") != null) {
                                             try {
-                                                Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+                                                Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb" + "'?useUnicode=true&characterEncoding=UTF-8\'"));
                                                 db.conectar();
 
                                                 String nombre_partido = request.getParameter("nombre_partido");

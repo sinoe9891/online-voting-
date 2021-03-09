@@ -87,6 +87,7 @@
                                                             <!--<th data-field="id">ID</th>-->
                                                             <th data-field="nombre" data-editable="false">NÚMERO DE MESA</th>
                                                             <th data-field="operaciones" data-editable="false">CENTRO DE VOTACIÓN</th>
+                                                            <th data-field="operaciones" data-editable="false">SECTOR DOMICILIO</th>
                                                             <th data-field="descripcion" data-editable="false">DEPARTAMENTO</th>
                                                             <th data-field="operaciones" data-editable="false">MUNICIPIO</th>
                                                         </tr>
@@ -95,9 +96,9 @@
 
                                                         <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                             db.conectar();
-                                                            db.query.execute("SELECT a.id_mesa, a.codigo_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio FROM mesas_electorales a, departamentos b, municipios c WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
+                                                            db.query.execute("SELECT a.id_mesa, a.numero_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.nombre_sector_domicilio FROM mesas_electorales a, departamentos b, municipios c WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
                                                             ResultSet rs = db.query.getResultSet();
-                                                            String id_mesa, codigo_mesa, centro_de_votacion, nombre_departamento, nombre_municipio;
+                                                            String id_mesa, codigo_mesa, centro_de_votacion, nombre_departamento, nombre_municipio, nombre_sector_domicilio;
                                                             while (rs.next()) {
 
                                                                 id_mesa = rs.getString(1);
@@ -105,16 +106,22 @@
                                                                 centro_de_votacion = rs.getString(3);
                                                                 nombre_departamento = rs.getString(4);
                                                                 nombre_municipio = rs.getString(5);
+                                                                nombre_sector_domicilio = rs.getString(6);
                                                         %>
                                                         <tr role="row" class="odd">
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=id_mesa%>
+                                                                    <%=codigo_mesa%>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
                                                                     <%=centro_de_votacion%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                    <%=nombre_sector_domicilio%>
                                                                 </div>
                                                             </td>
                                                             <td>

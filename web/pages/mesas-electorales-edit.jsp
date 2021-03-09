@@ -60,7 +60,11 @@
             document.getElementById("ids1").value = pnp;
             document.getElementById("ids2").value = pd;
             document.getElementById("ids3").value = pep;
+            console.log(pid);
+            console.log(pnp);
+            console.log(pd);
         }
+
     </script>
 
     <body>
@@ -91,22 +95,25 @@
                                             try {
                                                 Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                 db.conectar();
-
                                                 String centro_de_votacion = request.getParameter("centro_de_votacion");
                                                 String latitud = request.getParameter("latitud");
+                                                String nombredomicilio = request.getParameter("nombredomicilio");
                                                 String longitud = request.getParameter("longitud");
                                                 String id_departamento_mesa = request.getParameter("id_departamento_mesa");
                                                 String id_municipio_mesa = request.getParameter("id_municipio_mesa");
-
+                                                //db.query.executeUpdate("SET CHARACTER SET 'UTF8'");
                                                 int contador = db.query.executeUpdate("INSERT into mesas_electorales"
-                                                        + "(centro_de_votacion,latitud,longitud,id_departamento_mesa,id_municipio_mesa) "
+                                                        + "(centro_de_votacion,nombre_sector_domicilio,latitud,longitud,id_departamento_mesa,id_municipio_mesa) "
                                                         + "VALUES('"
                                                         + centro_de_votacion + "'"
+                                                        + ",'" + nombredomicilio + "'"
                                                         + ",'" + latitud + "'"
                                                         + ",'" + longitud + "'"
                                                         + ",'" + id_departamento_mesa + "'"
                                                         + ",'" + id_municipio_mesa
                                                         + "')");
+                                                
+                                                request.setCharacterEncoding("UTF-8");
 
                                                 db.commit();
                                                 db.desconectar();
@@ -152,9 +159,9 @@
                                                 Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                 db.conectar();
                                                 int contador = db.query.executeUpdate("UPDATE mesas_electorales "
-                                                        + "SET centro_de_votacion='" + request.getParameter("ti_centro_votacion") + "',   "
-                                                        + "id_departamento_mesa='" + request.getParameter("ti_departamento_mesa") + "',   "
-                                                        + "id_municipio_mesa='" + request.getParameter("ti_municipio_mesa") + "'"
+                                                        + "SET centro_de_votacion='" + request.getParameter("ti_nombre_presidente") + "',   "
+                                                        + "nombre_sector_domicilio='" + request.getParameter("ti_url_photo") + "',   "
+                                                        + "latitud='" + request.getParameter("genero_presidente") + "'"
                                                         + "WHERE id_mesa='" + request.getParameter("ti_id") + "' ");
                                                 if (contador >= 1) {
                                                     String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>El registro se modificó correctamente</h4></div>";
@@ -171,7 +178,6 @@
                                     %>
                                     <section class="app-user-list">
                                         <div class="card">
-
                                             <div class="nav-header">
                                                 <div style="text-align:left;width: 100%;">
                                                     <form name="f1" action="mesas-electorales-edit.jsp" method="POST">
@@ -225,6 +231,10 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
+                                                                <label class="form-label" for="enlace-url">SECTOR DOMICILIO</label>
+                                                                <input type="text" name="nombredomicilio"  id="basic-icon-default-uname" class="form-control dt-uname" placeholder="Domicilio" >
+                                                            </div>  
+                                                            <div class="form-group">
                                                                 <label class="form-label" for="enlace-url">Latitud</label>
                                                                 <input type="text" name="latitud"  id="basic-icon-default-uname" class="form-control dt-uname" placeholder="Latitud" >
                                                             </div>  
@@ -251,6 +261,7 @@
                                                             <!--<th data-field="id">ID</th>-->
                                                             <th data-field="nombre" data-editable="false">NÚMERO DE MESA</th>
                                                             <th data-field="operaciones" data-editable="false">CENTRO DE VOTACIÓN</th>
+                                                            <th data-field="operaciones" data-editable="false">SECTOR DOMICILIO</th>
                                                             <th data-field="descripcion" data-editable="false">DEPARTAMENTO</th>
                                                             <th data-field="operaciones" data-editable="false">MUNICIPIO</th>
                                                             <th data-field="operaciones" data-editable="false">ACCIONES</th>
@@ -260,26 +271,36 @@
 
                                                         <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                             db.conectar();
-                                                            db.query.execute("SELECT a.id_mesa, a.codigo_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio FROM mesas_electorales a, departamentos b, municipios c WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
+                                                            db.query.execute("SELECT a.id_mesa, a.numero_mesa, a.nombre_sector_domicilio, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.latitud "
+                                                                    + "FROM mesas_electorales a, departamentos b, municipios c "
+                                                                    + "WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio "
+                                                                    + "ORDER BY a.id_mesa DESC");
                                                             ResultSet rs = db.query.getResultSet();
-                                                            String id_mesa, codigo_mesa, centro_de_votacion, nombre_departamento, nombre_municipio;
+                                                            String id_mesa, codigo_mesa, nombre_sector_domicilio, centro_de_votacion, nombre_departamento, nombre_municipio, latitud_centro;
                                                             while (rs.next()) {
 
                                                                 id_mesa = rs.getString(1);
                                                                 codigo_mesa = rs.getString(2);
-                                                                centro_de_votacion = rs.getString(3);
-                                                                nombre_departamento = rs.getString(4);
-                                                                nombre_municipio = rs.getString(5);
+                                                                nombre_sector_domicilio = rs.getString(3);
+                                                                centro_de_votacion = rs.getString(4);
+                                                                nombre_departamento = rs.getString(5);
+                                                                nombre_municipio = rs.getString(6);
+                                                                latitud_centro = rs.getString(7);
                                                         %>
                                                         <tr role="row" class="odd">
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=id_mesa%>
+                                                                    <%=codigo_mesa%>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
                                                                     <%=centro_de_votacion%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                    <%=nombre_sector_domicilio%>
                                                                 </div>
                                                             </td>
                                                             <td>
@@ -300,7 +321,7 @@
                                                                              color: black;"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                                                     </button>
                                                                     <div class="dropdown-menu">
-                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=codigo_mesa%>', '<%=centro_de_votacion%>', '<%=nombre_departamento%>', '<%=nombre_municipio%>')">
+                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id_mesa%>', '<%=centro_de_votacion%>', '<%=nombre_sector_domicilio%>', '<%=latitud_centro%>')">
                                                                             <i data-feather="edit-2" class="mr-50"></i>
                                                                             <span>Modificar</span>
                                                                         </a>
@@ -313,8 +334,6 @@
                                                             </td>
                                                         </tr>
                                                         <%  }%>
-
-
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -338,55 +357,24 @@
                         </button>
                     </div>
                     <form name="fM1" action="mesas-electorales-edit.jsp" method="POST">
+
                         <input type="hidden" id="idh1" name="ti_id" value="" />
+
                         <div class="modal-body">
                             <label>Centro de Votación: </label>
                             <div class="form-group">
-                                <input id="ids1" type="text" name="ti_centro_votacion" value="" class="form-control"/>
-                            </div>
-<!--                            <label>Departamento: </label>
-                            <div class="form-group">
-                                <select class="form-control" id="ids2" name="ti_departamento_mesa">
-                                    <% Dba dbaeptmodi = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
-                                        dbaeptmodi.conectar();
-                                        dbaeptmodi.query.execute("SELECT nombre_departamento, id_departamento from departamentos ORDER BY nombre_departamento ASC");
-                                        ResultSet rsdeptmodi = dbaeptmodi.query.getResultSet();
-                                        String nombre_departamentomodi;
-                                        String id_departamentomodi;
-                                        while (rsdeptmodi.next()) {
-
-                                            nombre_departamentomodi = rsdeptmodi.getString(1);
-                                            id_departamentomodi = rsdeptmodi.getString(2);
-                                    %>
-                                    <option value="<%=id_departamentomodi%>" name=''>
-                                        <%=nombre_departamentomodi%>
-                                    </option>
-                                    <%  }%> 
-                                </select>
+                                <input id="ids1" type="text" name="ti_nombre_presidente" value="" class="form-control"/>
                             </div>
 
-                            <label class="form-label" for="enlace-url">Municipio</label>
+                            <label>Nombre del Sector: </label>
                             <div class="form-group">
-                                <select class="form-control" name="ti_municipio_mesa" id="ids3">
-                                    <% Dba dbamunimodi = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
-                                        dbamunimodi.conectar();
-                                        dbamunimodi.query.execute("SELECT a.nombre_municipio, b.nombre_departamento, a.id_municipio, b.id_departamento FROM municipios a, departamentos b WHERE a.id_departamento = b.id_departamento ORDER BY a.nombre_municipio ASC");
-                                        ResultSet rsmunimodi = dbamunimodi.query.getResultSet();
-                                        String nombremunicipiomodi, idmunicipiomodi, iddepartamentomodi, nombredepartamentomodi;
-                                        while (rsmunimodi.next()) {
+                                <input id="ids2" type="text" name="ti_url_photo" value="" class="form-control"/>
+                            </div>
 
-                                            nombremunicipiomodi = rsmunimodi.getString(1);
-                                            nombredepartamentomodi = rsmunimodi.getString(2);
-                                            idmunicipiomodi = rsmunimodi.getString(3);
-                                            iddepartamentomodi = rsmunimodi.getString(4);
-
-                                    %>
-                                    <option value="<%=idmunicipiomodi%>" name=''>
-                                        <%=nombremunicipiomodi%>
-                                    </option>
-                                    <%  }%> 
-                                </select>
-                            </div>-->
+                            <label>Latitud </label>
+                            <div class="form-group">
+                                <input id="ids3" type="text" name="genero_presidente" value="" class="form-control"/>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <input type="submit" value="Modificar Producto" name="bt_modificar" /><br>    
