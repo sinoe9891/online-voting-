@@ -46,30 +46,16 @@
     <link rel="stylesheet" type="text/css" href="../src/app-assets/css/plugins/forms/form-validation.css">
     <link rel="stylesheet" type="text/css" href="../src/app-assets/css/pages/app-user.css"> -->
         <!-- END: Page CSS-->
+        <style>
+            .presidente a{
+                color:#c3151c;
+            }
+        </style>
     </head>   
     <body>
         <div class="main-sidebar">
             <div class="container-login">
-
-                <div class="sidebar-main">
-                    <div class="img-log">
-                        <img class="logo-plat-sidebar" src="../src/img/Votem_Logo_Primary_Navy.png" alt="">
-                        <img class="logo-sidebar" src="../src/img/logo-ceutec.png" alt="">
-                    </div>
-                    <nav>
-                        <ul class="navigation navigation-main">
-                            <li class="nav-item"><a href="partidos-politicos.jsp"><i class="far fa-flag"></i>Partidos Políticos</li></a>
-                            <li class="nav-item"><a href="presidente.jsp"><i class="fas fa-user"></i>Presidente</li></a>
-                            <li class="nav-item"><a href="#"><i class="fas fa-user-friends"></i>Alcaldes</li></a>
-                            <li class="nav-item"><a href="#"><i class="fas fa-users"></i>Diputados</li></a>
-                            <li class="nav-item"><a href="#"><i class="fas fa-person-booth"></i>Votantes</li></a>
-                            <li class="nav-item"><a href="usuarios.jsp"><i class="fas fa-user-cog"></i>Usuarios</li></a>
-                            <li class="nav-item header-item">TÍTULO</li>
-                            <li class="nav-item"><a href="#"><i class="fas fa-poll"></i>Métricas</li></a>
-                        </ul>
-                    </nav>
-                </div>
-
+                <%@include file="sidebar.jsp" %>
                 <div class="main-body-page"> 
                     <div class="content-wrapper">
                         <div class="content-body">
