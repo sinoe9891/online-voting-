@@ -63,44 +63,78 @@
                                 <div class="card">
                                     <div class="nav-header">
                                         <div style="width: 50%;">
-                                            <h3>Candidatos Presidenciales</h3>
+                                            <h3>Mesas Electorales</h3>
                                         </div>
                                         <div style="text-align:right;width: 50%;">
-                                            <a href="edit-presidentes.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>
-                                        <!--<button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
-                                            <button class="btn add-new btn-warning mt-100" type="button"><span>Modificar</span></button>
-                                            <button class="btn add-new btn-danger mt-100" type="button"><span>Eliminar</span></button>-->
+                                            <a href="mesas-electorales-edit.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>
+                                            <!--<button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
+                                                <button class="btn add-new btn-warning mt-100" type="button"><span>Modificar</span></button>
+                                                <button class="btn add-new btn-danger mt-100" type="button"><span>Eliminar</span></button>-->
                                         </div>
                                     </div>
                                 </div>
                             </section>
                             <section class="app-user-list">
                                 <div class="card">
-                                    <div class="responsive">
-                                        <%
-                                            try {
-                                                Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
-                                                db.conectar();
-                                                db.query.execute("select nombre_presidente, photo_profile, src_url_logo_movimiento, genero_presidente from presidente");
-                                                ResultSet rs = db.query.getResultSet();
-                                                String centinela = "n";
-                                                                                while (rs.next()) {%>
-                                        <div class="card-content">
-                                            <div class="img-logo">
-                                                <img src="<%=rs.getString(2)%>" alt="<%=rs.getString(2)%>">
-                                            </div>
-                                            <div class="nombre-partido">
-                                                <h4><%=rs.getString(1)%></h4>
+                                    <section class="app-user-list">
+                                        <div class="card">
+                                            <div class="card-datatable table-responsive pt-0">
+                                                <h3>Mesas Electorales</h3>
+                                                <table class="user-list-table ">
+                                                    <thead class="thead-light">
+                                                        <tr>
+
+                                                            <!--<th data-field="id">ID</th>-->
+                                                            <th data-field="nombre" data-editable="false">NÚMERO DE MESA</th>
+                                                            <th data-field="operaciones" data-editable="false">CENTRO DE VOTACIÓN</th>
+                                                            <th data-field="descripcion" data-editable="false">DEPARTAMENTO</th>
+                                                            <th data-field="operaciones" data-editable="false">MUNICIPIO</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+                                                            db.conectar();
+                                                            db.query.execute("SELECT a.id_mesa, a.codigo_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio FROM mesas_electorales a, departamentos b, municipios c WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
+                                                            ResultSet rs = db.query.getResultSet();
+                                                            String id_mesa, codigo_mesa, centro_de_votacion, nombre_departamento, nombre_municipio;
+                                                            while (rs.next()) {
+
+                                                                id_mesa = rs.getString(1);
+                                                                codigo_mesa = rs.getString(2);
+                                                                centro_de_votacion = rs.getString(3);
+                                                                nombre_departamento = rs.getString(4);
+                                                                nombre_municipio = rs.getString(5);
+                                                        %>
+                                                        <tr role="row" class="odd">
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                    <%=id_mesa%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                    <%=centro_de_votacion%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+
+                                                                    <%=nombre_departamento%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                    <%=nombre_municipio%>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <%  }%>
+                                                    </tbody> 
+                                                </table>
                                             </div>
                                         </div>
-                                        <%
-                                                }
-                                                db.desconectar();
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                        %>                
-                                    </div>
+                                    </section>
                                 </div>
                             </section>
                         </div>
