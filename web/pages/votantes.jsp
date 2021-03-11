@@ -62,7 +62,7 @@
                                 <div class="card">
                                     <div class="nav-header">
                                         <div style="width: 50%;">
-                                            <h3>Mesas Electorales</h3>
+                                            <h3>Votantes</h3>
                                         </div>
                                         <div style="text-align:right;width: 50%;">
                                             <a href="mesas-electorales-edit.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>
@@ -77,23 +77,24 @@
                                 <div class="card">
                                     <div class="card-datatable table-responsive pt-0" style='padding: 1rem; !important'>
                                         <div class="card-header border-bottom">
-                                            <h4 class="card-title">Mesas Electorales</h4>
+                                            <h4 class="card-title">Votantes</h4>
                                         </div>
                                         <table class="user-list-table "  id="datatable">
                                             <thead class="thead-light">
                                                 <tr class = "thead-dark">
-                                                    <th data-field="nombre" data-editable="false">NÚMERO DE MESA</th>
-                                                    <th data-field="operaciones" data-editable="false">CENTRO DE VOTACIÓN</th>
-                                                    <th data-field="operaciones" data-editable="false">SECTOR DOMICILIO</th>
-                                                    <th data-field="descripcion" data-editable="false">DEPARTAMENTO</th>
-                                                    <th data-field="operaciones" data-editable="false">MUNICIPIO</th>
-                                                    <th data-field="operaciones" data-editable="false">UBICACIÓN</th>
+                                                    <th data-field="nombre" data-editable="false">IDENTIDAD</th>
+                                                    <th data-field="operaciones" data-editable="false">NOMBRE</th>
+                                                    <th data-field="operaciones" data-editable="false">APELLIDO</th>
+                                                    <th data-field="descripcion" data-editable="false">SEXO</th>
+                                                    <th data-field="operaciones" data-editable="false">ESTADO</th>
+                                                    <th data-field="operaciones" data-editable="false">MÁS INFORMACIÓN</th>
+                                                    <!--<th data-field="operaciones" data-editable="false">MÁS INFORMACIÓN</th>-->
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                     db.conectar();
-                                                    db.query.execute("SELECT a.id_mesa, a.numero_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.nombre_sector_domicilio FROM mesas_electorales a, departamentos b, municipios c WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
+                                                    db.query.execute("SELECT a.id_mesa, a.numero_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.nombre_sector_domicilio FROM votantes a, departamentos b, municipios c WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
                                                     ResultSet rs = db.query.getResultSet();
                                                     String id_mesa, codigo_mesa, centro_de_votacion, nombre_departamento, nombre_municipio, nombre_sector_domicilio;
                                                     while (rs.next()) {
@@ -134,7 +135,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
-                                                            <a href="#"> Ver ubicación</a>
+                                                            <a href="#"> Ver más</a>
                                                         </div>
                                                     </td>
                                                 </tr>
