@@ -34,7 +34,7 @@
         90deg,
         rgba(248, 248, 248, 1) 0%,
         rgba(255, 255, 255, 1) 100%
-    );
+        );
 }
 .main-sidebar {
     display: flex;
@@ -80,11 +80,11 @@
 }
 
 /* Columnas */
-.col-4 {
+.colu-4 {
     width: 40%;
 }
 
-.col-8 {
+.colu-8 {
     width: 60%;
     background: #f8f8f8;
     /* background: red; */
@@ -170,8 +170,8 @@ input[type="submit"] {
 }
 .nav-item {
     margin:0px 15px;
-	padding: 10px 15px;
-	list-style: none;
+    padding: 10px 15px;
+    list-style: none;
 }
 .nav-item a {
     text-decoration: none;
@@ -184,8 +184,8 @@ input[type="submit"] {
     margin-right: 10px !important;
 }
 .header-item{
-	font-weight: 500;
-	color: #A6A4B0;
+    font-weight: 500;
+    color: #A6A4B0;
 }
 .card {
     margin: 2rem !important;
@@ -194,42 +194,42 @@ input[type="submit"] {
     width: 100%;
 }
 .card-content{
-	width: 250px;
-	margin: 2.5rem;
-	box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
-	transition: transform 0.3s ease-in-out;
+    width: 250px;
+    margin: 2.5rem;
+    box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);
+    transition: transform 0.3s ease-in-out;
 
 }
 .card-content:hover{
-	transform: scale(1.09);
+    transform: scale(1.09);
 }
 /* .img-logo{
-	width: 100px;
+        width: 100px;
 } */
 
 .img-logo img{
-	width: 100%;
+    width: 100%;
     max-width: 250px;
     min-width: 250px;
-	height: 160px;
-	object-fit: cover
+    height: 160px;
+    object-fit: cover
 }
 .img-logo-gestionar-partido img{
-	width: 20%;
+    width: 20%;
     max-width: 250px;
-	object-fit: cover
+    object-fit: cover
 }
 .nombre-partido{
-	padding-top: 10px;
-	text-align: center;
+    padding-top: 10px;
+    text-align: center;
 }
 .responsive{
-	display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 .nav-header{
-	display: flex;
+    display: flex;
     padding: 1rem;
 }
 .col-lg-12.col-xl-6 {
@@ -246,12 +246,12 @@ tr.odd {
         display: initial;
     }
     /* .container-login img {
-		width: 50%;
-	} */
+                width: 50%;
+        } */
     .logo-platform {
         width: 100px;
     }
-    .col-4 {
+    .colu-4 {
         width: 100%;
     }
     .form-login {
@@ -264,7 +264,8 @@ tr.odd {
         display: none;
     }
     .hidden {
-        display: initial;
+        display: initial !important;
+        visibility: initial !important;
     }
     .logo {
         width: 200px;
@@ -272,7 +273,7 @@ tr.odd {
     .logo-platform {
         width: 50px;
     }
-    .col-4 {
+    .colu-4 {
         width: 100%;
     }
     .form-login {

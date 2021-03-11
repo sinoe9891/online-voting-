@@ -1,8 +1,8 @@
-<%-- 
-    Document   : votacion.jsp
-    Created on : 03-10-2021, 09:18:05 PM
-    Author     : danny
---%>
+<%
+    if (session.getAttribute("s_user") == null) {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

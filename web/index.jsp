@@ -12,13 +12,26 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
         <title>Votación Online</title>
         <link rel="shortcut icon" href="src/img/unitec.ico" type="image/x-icon">
+        <link rel="stylesheet" type="text/css" href="src/app-assets/vendors/css/vendors.min.css">
+        <link rel="stylesheet" type="text/css" href="src/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css" href="src/app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css" href="src/app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css">
+        <!-- END: Vendor CSS-->
+
+        <!-- BEGIN: Theme CSS-->
+        <link rel="stylesheet" type="text/css" href="src/app-assets/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="src/app-assets/css/bootstrap-extended.css">
+        <link rel="stylesheet" type="text/css" href="src/app-assets/css/colors.css">
+        <link rel="stylesheet" type="text/css" href="src/app-assets/css/components.css">
+        <link rel="stylesheet" type="text/css" href="src/app-assets/css/themes/dark-layout.css">
+        <link rel="stylesheet" type="text/css" href="src/app-assets/css/themes/bordered-layout.css">
     </head>
 
     <body>
         <div class="main-login">
             <div class="container-login">
 
-                <div class="col-8 imagen-login">
+                <div class="colu-8 imagen-login">
                     <div class="container-center color-colum-second">
                         <img class="logo-platform" src="src/img/Votem_Logo_Primary_Navy.png" alt="">
                         <img class="logo" src="src/img/logo-ceutec.png" alt="">
@@ -26,7 +39,7 @@
                     </div>
                 </div>
 
-                <div class="col-4">
+                <div class="colu-4">
                     <div class="container-center color-colum-one">
                         <img class="logo-platform hidden" src="src/img/Votem_Logo_Primary_Navy.png" alt="">
                         <img class="logo hidden" src="src/img/logo-ceutec.png" alt="">
@@ -43,7 +56,21 @@
                                     </div>
                                     <div class="input-form">
                                         <label for="Usuario">Contraseña</label>
-                                        <input type="password" name="ti_password" value="" />
+                                        <input type="password" name="ti_password" value="role"/>
+                                    </div>
+                                    <div class="input-form">
+                                        <label for="Usuario">Role</label>
+                                        <select name="role" >
+                                            <option value="5">
+                                                Votante
+                                            </option>
+                                            <option value="3">
+                                                Magistrado
+                                            </option>
+                                            <option value="1">
+                                                Administrador
+                                            </option>
+                                        </select>
                                     </div>
                                     <br>
                                     <div>
