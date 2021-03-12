@@ -45,9 +45,18 @@
         <script type="text/javascript">
 
             function mostrar_mapa(centinela) {
+
                 //UbicaciÃ³n inicial del mapa.
-                var ubicacion = new google.maps.LatLng(14.104173, -87.186145); 
                 var ubicacion = new google.maps.LatLng(<%= request.getParameter("p_nombres")%>,<%= request.getParameter("p_apellidos")%>); //Latitud y Longitud
+                
+                console.log(ubicacion.lat());
+                if (ubicacion.lat() == 0 && ubicacion.lng() == 0) {
+                    document.getElementById("id_mapa_ver").style.display="none";
+                }else{
+                    document.getElementById("id_mapa_ver").style.display="initial";
+                }
+
+               
                 //ParÃ¡metros Iniciales
                 var opciones = {zoom: <%= request.getParameter("zoom_m")%>, //acercamiento
                     center: ubicacion,
@@ -59,7 +68,6 @@
 
                 //Creacion del mapa
                 var map = new google.maps.Map(document.getElementById("mapa"), opciones);
-
 
                 //recuperar ubicacion donde hago click
                 var iw = new google.maps.InfoWindow(
@@ -131,25 +139,21 @@
                                     </div>
                                 </div>
                             </section>
-                            <section class="app-user-list">
+                            <section class="app-user-list" id="id_mapa_ver">
                                 <div class="card">
                                     <div class="nav-header">
                                         <center>
-                                            <body onload="mostrar_mapa(0)" id="id_mapa_ver">
+                                            <body onload="mostrar_mapa(0)" >
                                                 <br>
                                                 <br>
                                                 <a href="info-mesa.jsp">Marcar Mapa desde Base de datos</a>
                                                 <br>
                                                 <br>
-
                                                 <div id="mapa" style="width: 900px; height: 500px; border: 5px groove #006600;"></div>
-                                                <input type="button" value="Mi ubicación" onclick="mostrar_mapa(1)"/>
-                                                <input type="button" value="Triángulo de las Bermudas" onclick="mostrar_triangulo()"/>
-                                                <input type="button" value="Limpiar ubicación" onclick="mostrar_mapa(0)"/>
                                             </body>
                                         </center>
                                         <%
-                                            //paso #2 si preciono el link para modificar
+                                            //paso #2 si preciono el link 
                                             if (request.getParameter("ver_mapa") != null) {
                                         %>
                                         <br>
@@ -240,7 +244,7 @@
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
                                                             <!--<a href="href="modificar.jsp?p_cuenta=<%=id_mesa%>&p_nombres=<%=longitud%>&p_apellidos=<%=codigo_mesa%>&p_editar=1"> Ver ubicación</a>-->
-                                                            <a href="#?p_cuenta=<%=id_mesa%>&p_nombres=<%=latitud%>&p_apellidos=<%=longitud%>&p_centro=<%=centro_de_votacion%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver ubicación</a>
+                                                            <a href="mesas-electorales.jsp?p_cuenta=<%=id_mesa%>&p_nombres=<%=latitud%>&p_apellidos=<%=longitud%>&p_centro=<%=centro_de_votacion%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver ubicación</a>
                                                         </div>
                                                     </td>
                                                 </tr>

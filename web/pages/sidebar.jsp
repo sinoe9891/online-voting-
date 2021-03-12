@@ -12,7 +12,7 @@
             <li class="nav-item presidente"><a href="presidente.jsp"><i class="fas fa-user"></i>Presidente</li></a>
             <li class="nav-item alcaldes"><a href="#"><i class="fas fa-user-friends"></i>Alcaldes</li></a>
             <li class="nav-item diputados"><a href="#"><i class="fas fa-users"></i>Diputados</li></a>
-            <li class="nav-item mesas"><a href="mesas-electorales.jsp?p_nombres=14.2359898&p_apellidos=-86.6623332&zoom_m=7&p_centro=Honduras&ver_mapa=1" onclick="mostrar_mapa(1)""><i class="fas fa-person-booth"></i>Mesas Electorales</li></a>
+            <li class="nav-item mesas"><a href="mesas-electorales.jsp" onclick="mostrar_mapa(1)""><i class="fas fa-person-booth"></i>Mesas Electorales</li></a>
             <li class="nav-item votantes"><a href="votantes.jsp"><i class="fas fa-users"></i>Votantes</li></a>
             <li class="nav-item usuarios"><a href="usuarios.jsp"><i class="fas fa-user-cog"></i>Usuarios</li></a>
             <li class="nav-item header-item">Configuración</li>
