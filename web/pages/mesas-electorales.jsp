@@ -40,7 +40,65 @@
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/components.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/dark-layout.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/bordered-layout.css">
+        <!--<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>-->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7Ys2hwRXTru00HE2Dxn6BEGU7t6s2_A&callback=initMap"></script>
+        <script type="text/javascript">
 
+            function mostrar_mapa(centinela) {
+                //UbicaciÃ³n inicial del mapa.
+                var ubicacion = new google.maps.LatLng(14.104173, -87.186145); 
+                var ubicacion = new google.maps.LatLng(<%= request.getParameter("p_nombres")%>,<%= request.getParameter("p_apellidos")%>); //Latitud y Longitud
+                //ParÃ¡metros Iniciales
+                var opciones = {zoom: <%= request.getParameter("zoom_m")%>, //acercamiento
+                    center: ubicacion,
+                    mapTypeId: google.maps.MapTypeId.SATELLITE, //Las posibles opciones son ROADMAP/SATELLITE/HYBRID/TERRA
+                    disableDefaultUI: true,
+                    disableDoubleClickZoom: true,
+                    draggable: false
+                };
+
+                //Creacion del mapa
+                var map = new google.maps.Map(document.getElementById("mapa"), opciones);
+
+
+                //recuperar ubicacion donde hago click
+                var iw = new google.maps.InfoWindow(
+                        {content: '<%= request.getParameter("p_centro")%>',
+                            position: ubicacion});
+                iw.open(map);
+                // configurar evento click sobre el mapa
+                map.addListener('click', function (mapsMouseEvent) {
+                    iw.close();
+                    iw = new google.maps.InfoWindow({position: mapsMouseEvent.latLng});
+                    iw.setContent(mapsMouseEvent.latLng.toString());
+                    iw.open(map);
+                });
+
+
+                if (centinela == 1) {
+                    //Colocar una marca sobre el Mapa
+                    mi_ubicacion = new google.maps.Marker({
+                        position: new google.maps.LatLng(14.104173, -87.186145), //PosiciÃ³n de la marca
+                        icon: 'persona.jpg', //Imagen que aparecerÃ¡ en la marca, debe estar en el server
+                        map: map, //Mapa donde estarÃ¡ la marca
+                        title: 'Danny Velásquez' //TÃ­tulo all hacer un mouseover
+                    });
+
+                    //Mostrar InformaciÃ³n al hacer click en la marca
+                    var infowindow = new google.maps.InfoWindow({
+                        content: 'Elaborado Por: Danny Velásquez Cadenas<br/>'
+                    });
+
+                    google.maps.event.addListener(mi_ubicacion, 'click', function () {
+                        //Calling the open method of the InfoWindow
+                        infowindow.open(map, mi_ubicacion);
+                    });
+                }
+            }
+
+
+
+        </script>
         <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
         <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>-->
 
@@ -76,25 +134,41 @@
                             <section class="app-user-list">
                                 <div class="card">
                                     <div class="nav-header">
-                            <%
-                            //paso #2 si preciono el link para modificar
-                            if( request.getParameter("ver_mapa")!=null  ){
-                            %>
-                            <br>
-                            <hr>
-                            <form name="f1" action="modificar.jsp" method="POST">                   
+                                        <center>
+                                            <body onload="mostrar_mapa(0)" id="id_mapa_ver">
+                                                <br>
+                                                <br>
+                                                <a href="info-mesa.jsp">Marcar Mapa desde Base de datos</a>
+                                                <br>
+                                                <br>
+
+                                                <div id="mapa" style="width: 900px; height: 500px; border: 5px groove #006600;"></div>
+                                                <input type="button" value="Mi ubicación" onclick="mostrar_mapa(1)"/>
+                                                <input type="button" value="Triángulo de las Bermudas" onclick="mostrar_triangulo()"/>
+                                                <input type="button" value="Limpiar ubicación" onclick="mostrar_mapa(0)"/>
+                                            </body>
+                                        </center>
+                                        <%
+                                            //paso #2 si preciono el link para modificar
+                                            if (request.getParameter("ver_mapa") != null) {
+                                        %>
+                                        <br>
+                                        <hr>
+                                        <form name="f1" action="modificar.jsp" method="POST">                   
                                             <input type="text" name="ti_cuenta" value="<%= request.getParameter("p_cuenta")%>" readonly="readonly"  />  
                                             Nombre
-                                          <input type="text" name="ti_nombre" value="<%= request.getParameter("p_nombres")%>" />
-                                          <input type="text" name="ti_nombre" value="<%= request.getParameter("p_apellidos")%>" />
+                                            <input type="text" name="ti_nombre" value="<%= request.getParameter("p_nombres")%>" />
+                                            <input type="text" name="ti_nombre" value="<%= request.getParameter("p_apellidos")%>" />
+                                            <input type="text" name="ti_nombre" value="<%= request.getParameter("p_centro")%>" />
+                                            <input type="text" name="ti_nombre" value="<%= request.getParameter("zoom_m")%>" />
 
-                            </form>
+                                        </form>
 
-                            <%
-                                }
-                            %>
-                            </div>
-                            </div>
+                                        <%
+                                            }
+                                        %>
+                                    </div>
+                                </div>
                             </section>
                             <section class="app-user-list">
                                 <div class="card">
@@ -116,15 +190,16 @@
                                             <tbody>
                                                 <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
 
-                                                    db.conectar ();
+                                                    db.conectar();
 
-                                                    db.query.execute (
-                                                    "SELECT a.id_mesa, a.numero_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.nombre_sector_domicilio, a.latitud, a.longitud FROM mesas_electorales a, departamentos b, municipios c WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
+                                                    db.query.execute(
+                                                            "SELECT a.id_mesa, a.numero_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.nombre_sector_domicilio, a.latitud, a.longitud "
+                                                            + "FROM mesas_electorales a, departamentos b, municipios c "
+                                                            + "WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
                                                     ResultSet rs = db.query.getResultSet();
                                                     String id_mesa, codigo_mesa, centro_de_votacion, nombre_departamento, nombre_municipio, nombre_sector_domicilio, latitud, longitud;
 
-                                                    while (rs.next () 
-                                                        ) {
+                                                    while (rs.next()) {
 
                                                         id_mesa = rs.getString(1);
                                                         codigo_mesa = rs.getString(2);
@@ -165,7 +240,7 @@
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
                                                             <!--<a href="href="modificar.jsp?p_cuenta=<%=id_mesa%>&p_nombres=<%=longitud%>&p_apellidos=<%=codigo_mesa%>&p_editar=1"> Ver ubicación</a>-->
-                                                            <a href="mesas-electorales.jsp?p_cuenta=<%=id_mesa%>&p_nombres=<%=latitud%>&p_apellidos=<%=longitud%>&ver_mapa=1">Ver ubicación</a>
+                                                            <a href="#?p_cuenta=<%=id_mesa%>&p_nombres=<%=latitud%>&p_apellidos=<%=longitud%>&p_centro=<%=centro_de_votacion%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver ubicación</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -185,7 +260,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
         <script>
-            $("#datatable").DataTable();
+                                                                $("#datatable").DataTable();
         </script>
         <!-- BEGIN: Vendor JS-->
         <script src="../src/app-assets/vendors/js/vendors.min.js"></script>
@@ -203,14 +278,14 @@
         <script src="../src/app-assets/js/scripts/tables/table-datatables-advanced.js"></script>
         <!-- END: Page Vendor JS-->
         <script>
-            $(window).on('load', function () {
-                if (feather) {
-                    feather.replace({
-                        width: 14,
-                        height: 14
-                    });
-                }
-            })
+                                                                $(window).on('load', function () {
+                                                                    if (feather) {
+                                                                        feather.replace({
+                                                                            width: 14,
+                                                                            height: 14
+                                                                        });
+                                                                    }
+                                                                })
         </script> 
         <!-- BEGIN: Theme JS-->
         <script src="../src/app-assets/js/core/app-menu.js"></script>
