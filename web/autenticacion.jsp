@@ -20,6 +20,8 @@
             session.setAttribute("s_pass", request.getParameter("ti_password"));
             session.setAttribute("s_role", request.getParameter("role"));
             
+//            request.getParameter("role").toString().equals(rs.getString(3));
+            
             out.print(request.getParameter("role"));
             if (request.getParameter("role").equals("1")) {
                  request.getRequestDispatcher("pages/principal.jsp").forward(request, response);
