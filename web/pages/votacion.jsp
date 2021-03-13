@@ -55,10 +55,11 @@
                     </div>
                     <nav>
                         <ul class="navigation navigation-main">
-                            <li class="nav-item votacion"><a href="pages/votacion.jsp"><i class="fas fa-person-booth"></i>Votación</li></a>
+                            <li class="nav-item votacion"><a href="votacion.jsp"><i class="fas fa-person-booth"></i>Votación</li></a>
                             <li class="nav-item presidentes"><a href="pages/boleta-presidente.jsp"><i class="fas fa-user"></i>Presidentes</li></a>
                             <li class="nav-item diputados"><a href="pages/boleta-diputados.jsp"><i class="fas fa-users"></i>Diputados</li></a>
                             <li class="nav-item alcaldes"><a href="pages/boleta-alcalde.jsp"><i class="fas fa-user-friends"></i>Alcaldes</li></a>
+                            <li class="nav-item mesas"><a href="pages/mesas.jsp"><i class="fas fa-person-booth"></i>Mesas Electorales</li></a>
                             <!--                            <li class="nav-item"><a href="pages/partidos-politicos.jsp"><i class="far fa-flag"></i>Partidos Políticos</li></a>
                                                         <li class="nav-item"><a href="pages/presidente.jsp"><i class="fas fa-user"></i>Presidente</li></a>
                                                         <li class="nav-item"><a href="#"><i class="fas fa-user-friends"></i>Alcaldes</li></a>

@@ -48,15 +48,15 @@
 
                 //UbicaciÃ³n inicial del mapa.
                 var ubicacion = new google.maps.LatLng(<%= request.getParameter("p_nombres")%>,<%= request.getParameter("p_apellidos")%>); //Latitud y Longitud
-                
+
                 console.log(ubicacion.lat());
                 if (ubicacion.lat() == 0 && ubicacion.lng() == 0) {
-                    document.getElementById("id_mapa_ver").style.display="none";
-                }else{
-                    document.getElementById("id_mapa_ver").style.display="initial";
+                    document.getElementById("id_mapa_ver").style.display = "none";
+                } else {
+                    document.getElementById("id_mapa_ver").style.display = "initial";
                 }
 
-               
+
                 //ParÃ¡metros Iniciales
                 var opciones = {zoom: <%= request.getParameter("zoom_m")%>, //acercamiento
                     center: ubicacion,
@@ -75,12 +75,12 @@
                             position: ubicacion});
                 iw.open(map);
                 // configurar evento click sobre el mapa
-                map.addListener('click', function (mapsMouseEvent) {
-                    iw.close();
-                    iw = new google.maps.InfoWindow({position: mapsMouseEvent.latLng});
-                    iw.setContent(mapsMouseEvent.latLng.toString());
-                    iw.open(map);
-                });
+//                map.addListener('click', function (mapsMouseEvent) {
+//                    iw.close();
+//                    iw = new google.maps.InfoWindow({position: mapsMouseEvent.latLng});
+//                    iw.setContent(mapsMouseEvent.latLng.toString());
+//                    iw.open(map);
+//                });
 
 
                 if (centinela == 1) {
@@ -142,31 +142,35 @@
                             <section class="app-user-list" id="id_mapa_ver">
                                 <div class="card">
                                     <div class="nav-header">
-                                        <center>
-                                            <body onload="mostrar_mapa(0)" >
-                                                <br>
-                                                <br>
-                                                <a href="info-mesa.jsp">Marcar Mapa desde Base de datos</a>
-                                                <br>
-                                                <br>
-                                                <div id="mapa" style="width: 900px; height: 500px; border: 5px groove #006600;"></div>
-                                            </body>
-                                        </center>
-                                        <%
-                                            //paso #2 si preciono el link 
-                                            if (request.getParameter("ver_mapa") != null) {
-                                        %>
-                                        <br>
-                                        <hr>
-                                        <form name="f1" action="modificar.jsp" method="POST">                   
-                                            <input type="text" name="ti_cuenta" value="<%= request.getParameter("p_cuenta")%>" readonly="readonly"  />  
-                                            Nombre
-                                            <input type="text" name="ti_nombre" value="<%= request.getParameter("p_nombres")%>" />
-                                            <input type="text" name="ti_nombre" value="<%= request.getParameter("p_apellidos")%>" />
-                                            <input type="text" name="ti_nombre" value="<%= request.getParameter("p_centro")%>" />
-                                            <input type="text" name="ti_nombre" value="<%= request.getParameter("zoom_m")%>" />
+                                        <div>
+                                            <center>
+                                                <body onload="mostrar_mapa(0)" >
+                                                    <br>
+                                                    <br>
+                                                    <h4>Ubicación de Sector Domicilio</h4>
+                                                    <br>
+                                                    <br>
+                                                    <div id="mapa" style="width: 650px; height: 400px;"></div>
+                                                </body>
+                                            </center>
+                                        </div>
+                                        <div>
+                                            <%
+                                                //paso #2 si preciono el link 
+                                                if (request.getParameter("ver_mapa") != null) {
+                                            %>
+                                            <br>
+                                            <hr>
+                                            <form name="f1" action="modificar.jsp" method="POST">                   
+                                                <input type="text" name="ti_cuenta" value="<%= request.getParameter("p_cuenta")%>" readonly="readonly"  />  
+                                                Nombre
+                                                <input type="text" name="ti_nombre" value="<%= request.getParameter("p_nombres")%>" />
+                                                <input type="text" name="ti_nombre" value="<%= request.getParameter("p_apellidos")%>" />
+                                                <input type="text" name="ti_nombre" value="<%= request.getParameter("p_centro")%>" />
+                                                <input type="text" name="ti_nombre" value="<%= request.getParameter("zoom_m")%>" />
 
-                                        </form>
+                                            </form>
+                                        </div>
 
                                         <%
                                             }
@@ -243,7 +247,6 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
-                                                            <!--<a href="href="modificar.jsp?p_cuenta=<%=id_mesa%>&p_nombres=<%=longitud%>&p_apellidos=<%=codigo_mesa%>&p_editar=1"> Ver ubicación</a>-->
                                                             <a href="mesas-electorales.jsp?p_cuenta=<%=id_mesa%>&p_nombres=<%=latitud%>&p_apellidos=<%=longitud%>&p_centro=<%=centro_de_votacion%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver ubicación</a>
                                                         </div>
                                                     </td>

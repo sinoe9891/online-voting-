@@ -56,14 +56,14 @@
     </head>  
 
     <script>
-        function mod(pid, pnp, pd, pep, log) {
-            var modal2 = document.getElementById("myModal");
-            document.getElementById("idh1").value = pid;
-            document.getElementById("ids1").value = pnp;
-            document.getElementById("ids2").value = pd;
-            document.getElementById("ids3").value = pep;
-            document.getElementById("ids3").value = log;
-        }
+            function mod(pid, pnp, pd, pep, log) {
+                var modal2 = document.getElementById("myModal");
+                document.getElementById("idh1").value = pid;
+                document.getElementById("ids1").value = pnp;
+                document.getElementById("ids2").value = pd;
+                document.getElementById("ids3").value = pep;
+                document.getElementById("ids3").value = log;
+            }
 
     </script>
 
@@ -119,8 +119,7 @@
                                                 db.desconectar();
                                                 if (contador == 1) {
                                                     String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>Partido Político Se agregó con éxito</h4></div>";
-                                                    out.print(alerta);
-                                                }
+                                        }
                                             } catch (Exception e) {
                                                 String alerta = "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>Registro no se creó</h4></div>";
                                                 out.print(alerta);
@@ -141,8 +140,7 @@
                                                 db.desconectar();
                                                 if (contador >= 1) {
                                                     String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>Registro Eliminado</h4></div>";
-                                                    out.print(alerta);
-                                                }
+                                        }
                                             } catch (Exception e) {
                                                 String alerta = "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>Registro Eliminado</h4></div>";
                                                 out.print(alerta);

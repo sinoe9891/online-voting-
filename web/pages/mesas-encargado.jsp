@@ -1,12 +1,9 @@
-<%@page import="java.text.SimpleDateFormat"%>
 <%if (session.getAttribute("s_user") == null) {
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 %>
 <%@page import="database.*"%>
 <%@page import="java.sql.*"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="es">
@@ -43,16 +40,14 @@
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/components.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/dark-layout.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/bordered-layout.css">
+        <!--<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>-->
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7Ys2hwRXTru00HE2Dxn6BEGU7t6s2_A&callback=initMap"></script>
-        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
-        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>-->
-
         <script type="text/javascript">
 
             function mostrar_mapa(centinela) {
 
                 //UbicaciÃ³n inicial del mapa.
-                var ubicacion = new google.maps.LatLng(<%= request.getParameter("latitud")%>,<%= request.getParameter("longitud")%>); //Latitud y Longitud
+                var ubicacion = new google.maps.LatLng(<%= request.getParameter("p_nombres")%>,<%= request.getParameter("p_apellidos")%>); //Latitud y Longitud
 
                 console.log(ubicacion.lat());
                 if (ubicacion.lat() == 0 && ubicacion.lng() == 0) {
@@ -76,7 +71,7 @@
 
                 //recuperar ubicacion donde hago click
                 var iw = new google.maps.InfoWindow(
-                        {content: '<%= request.getParameter("centro")%>',
+                        {content: '<%= request.getParameter("p_centro")%>',
                             position: ubicacion});
                 iw.open(map);
                 // configurar evento click sobre el mapa
@@ -112,9 +107,12 @@
 
 
         </script>
+        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
+        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>-->
+
 
         <style>
-            .votantes a{
+            .mesas a{
                 color:#c3151c;
             }
         </style>
@@ -122,7 +120,7 @@
     <body>
         <div class="main-sidebar">
             <div class="container-login">
-                <%@include file="sidebar.jsp" %>
+                <%@include file="sidebar-votante.jsp" %>
                 <div class="main-body-page"> 
                     <div class="content-wrapper">
                         <div class="content-body">
@@ -130,10 +128,10 @@
                                 <div class="card">
                                     <div class="nav-header">
                                         <div style="width: 50%;">
-                                            <h3>Votantes</h3>
+                                            <h3>Mesas Electorales</h3>
                                         </div>
                                         <div style="text-align:right;width: 50%;">
-                                            <a href="votantes-edit.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>
+                                            <a href="mesas-electorales-edit.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>
                                             <!--<button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
                                                 <button class="btn add-new btn-warning mt-100" type="button"><span>Modificar</span></button>
                                                 <button class="btn add-new btn-danger mt-100" type="button"><span>Eliminar</span></button>-->
@@ -145,16 +143,16 @@
                                 <div class="card">
                                     <div class="nav-header">
                                         <div>
-                                            <section class="app-user-list" id="id_mapa_ver">
-                                                <div class="card">
-                                                    <center>
-                                                        <body onload="mostrar_mapa(0)" >
-                                                            <h4>Ubicación de Sector Domicilio</h4>
-                                                            <div id="mapa" style="width: 650px; height: 400px;"></div>
-                                                        </body>
-                                                    </center>
-                                                </div>
-                                            </section>
+                                            <center>
+                                                <body onload="mostrar_mapa(0)" >
+                                                    <br>
+                                                    <br>
+                                                    <h4>Ubicación de Sector Domicilio</h4>
+                                                    <br>
+                                                    <br>
+                                                    <div id="mapa" style="width: 650px; height: 400px;"></div>
+                                                </body>
+                                            </center>
                                         </div>
                                         <div>
                                             <%
@@ -162,63 +160,18 @@
                                                 if (request.getParameter("ver_mapa") != null) {
                                             %>
                                             <br>
-                                            <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
-                                                db.conectar();
-                                                db.query.execute("SELECT a.id_votante, a.identidad, a.nombre_votante, a.apellidos_votantes, a.sexo, a.fecha_nacimiento, a.estado, b.nombre_departamento, c.nombre_municipio, d.nombre_sector_domicilio, d.numero_mesa, d.linea, d.nombre_sector_domicilio, d.centro_de_votacion, d.latitud, d.longitud "
-                                                        + "FROM votantes a, departamentos b, municipios c, mesas_electorales d WHERE  a.identidad "
-                                                        + "LIKE '" + request.getParameter("identidad") + "' "
-                                                        + "AND a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio AND a.numero_mesa = d.id_mesa "
-                                                        + "ORDER BY a.nombre_votante DESC");
-                                                ResultSet rs = db.query.getResultSet();
-                                                String id_votante, identidad, nombres, apellidos, sexo, estatus, departamento, municipio, colonia, numero_mesa, linea;
-                                                Boolean estado;
-                                                while (rs.next()) {
+                                            <hr>
+                                            <form name="f1" action="modificar.jsp" method="POST">                   
+                                                <input type="text" name="ti_cuenta" value="<%= request.getParameter("p_cuenta")%>" readonly="readonly"  />  
+                                                Nombre
+                                                <input type="text" name="ti_nombre" value="<%= request.getParameter("p_nombres")%>" />
+                                                <input type="text" name="ti_nombre" value="<%= request.getParameter("p_apellidos")%>" />
+                                                <input type="text" name="ti_nombre" value="<%= request.getParameter("p_centro")%>" />
+                                                <input type="text" name="ti_nombre" value="<%= request.getParameter("zoom_m")%>" />
 
-                                                    id_votante = rs.getString(1);
-                                                    identidad = rs.getString(2);
-                                                    nombres = rs.getString(3);
-                                                    apellidos = rs.getString(4);
-                                                    sexo = rs.getString(5);
-
-                                                    String fecha_nacimiento2 = rs.getString(6);
-                                                    Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fecha_nacimiento2);
-                                                    String fecha_nacimiento = new SimpleDateFormat("dd/MM/yyyy").format(fechaNacimiento);
-                                                    
-                                                    estado = rs.getBoolean(7);
-                                                    departamento = rs.getString(8);
-                                                    municipio = rs.getString(9);
-                                                    colonia = rs.getString(10);
-                                                    numero_mesa = rs.getString(11);
-                                                    linea = rs.getString(12);
-
-                                                    if (estado) {
-                                                        estatus = "Habilitado";
-                                                    } else {
-                                                        estatus = "Inhabilitado";
-                                                    }
-                                            %>
-                                            <section class="app-user-list" id="id_mapa_ver">
-                                                <div class="card">
-                                                    <h4>Información del Ciudadano</h4>
-                                                    <div class="nav-header">
-                                                        <div class="card">
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item">NÚMERO DE IDENTIDAD: <strong> <%=identidad%> </strong></li>
-                                                                <li class="list-group-item">NOMBRE APARECE EN CENSO: <strong> <%=nombres%> <%=apellidos%></strong></li>
-                                                                <li class="list-group-item">SEXO: <strong><%=sexo%></strong></li>
-                                                                <li class="list-group-item">FECHA DE NACIMIENTO: <strong><%=fecha_nacimiento%></strong></li>
-                                                                <li class="list-group-item">ESTADO EN CENSO: <strong><%=estatus%></strong></li>
-                                                                <li class="list-group-item">DEPARTAMENTO Y MUNICIPIO DE DOMICILIO: <strong><%=municipio%>, <%=departamento%></strong></li>
-                                                                <li class="list-group-item">NOMBRE DEL SECTOR DOMICILIO: <strong><%=colonia%></strong></li>
-                                                                <li class="list-group-item">MESA:<strong> <%=numero_mesa%></strong></li>
-                                                                <li class="list-group-item">LÍNEA:<strong> <%=linea%></strong></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </section>
+                                            </form>
                                         </div>
-                                        <%  }%>
+
                                         <%
                                             }
                                         %>
@@ -229,77 +182,73 @@
                                 <div class="card">
                                     <div class="card-datatable table-responsive pt-0" style='padding: 1rem; !important'>
                                         <div class="card-header border-bottom">
-                                            <h4 class="card-title">Votantes</h4>
+                                            <h4 class="card-title">Mesas Electorales</h4>
                                         </div>
                                         <table class="user-list-table "  id="datatable">
                                             <thead class="thead-light">
                                                 <tr class = "thead-dark">
-                                                    <th data-field="nombre" data-editable="false">IDENTIDAD</th>
-                                                    <th data-field="operaciones" data-editable="false">NOMBRE</th>
-                                                    <th data-field="operaciones" data-editable="false">APELLIDO</th>
-                                                    <th data-field="descripcion" data-editable="false">SEXO</th>
-                                                    <th data-field="operaciones" data-editable="false">ESTADO</th>
-                                                    <th data-field="operaciones" data-editable="false">MÁS INFORMACIÓN</th>
-                                                    <!--<th data-field="operaciones" data-editable="false">MÁS INFORMACIÓN</th>-->
+                                                    <th data-field="nombre" data-editable="false">NÚMERO DE MESA</th>
+                                                    <th data-field="operaciones" data-editable="false">CENTRO DE VOTACIÓN</th>
+                                                    <th data-field="operaciones" data-editable="false">SECTOR DOMICILIO</th>
+                                                    <th data-field="descripcion" data-editable="false">DEPARTAMENTO</th>
+                                                    <th data-field="operaciones" data-editable="false">MUNICIPIO</th>
+                                                    <th data-field="operaciones" data-editable="false">UBICACIÓN</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+
                                                     db.conectar();
-                                                    db.query.execute("SELECT a.id_votante, a.identidad, a.nombre_votante, a.apellidos_votantes, a.sexo, a.fecha_nacimiento, a.estado, d.latitud, d.longitud, d.centro_de_votacion FROM votantes a, departamentos b, municipios c, mesas_electorales d "
-                                                            + "WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio AND a.numero_mesa = d.id_mesa ORDER BY a.nombre_votante DESC");
+
+                                                    db.query.execute(
+                                                            "SELECT a.id_mesa, a.numero_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.nombre_sector_domicilio, a.latitud, a.longitud "
+                                                            + "FROM mesas_electorales a, departamentos b, municipios c "
+                                                            + "WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
                                                     ResultSet rs = db.query.getResultSet();
-                                                    String id_votante, identidad, nombres, apellidos, sexo, fecha_nacimiento, estatus, latitud, longitud, centro;
-                                                    Boolean estado;
+                                                    String id_mesa, codigo_mesa, centro_de_votacion, nombre_departamento, nombre_municipio, nombre_sector_domicilio, latitud, longitud;
+
                                                     while (rs.next()) {
 
-                                                        id_votante = rs.getString(1);
-                                                        identidad = rs.getString(2);
-                                                        nombres = rs.getString(3);
-                                                        apellidos = rs.getString(4);
-                                                        sexo = rs.getString(5);
-                                                        fecha_nacimiento = rs.getString(6);
-                                                        estado = rs.getBoolean(7);
-                                                        latitud = rs.getString(8);
-                                                        longitud = rs.getString(9);
-                                                        centro = rs.getString(10);
-
-                                                        if (estado) {
-                                                            estatus = "Habilitado";
-                                                        } else {
-                                                            estatus = "Inhabilitado";
-                                                        }
-
+                                                        id_mesa = rs.getString(1);
+                                                        codigo_mesa = rs.getString(2);
+                                                        centro_de_votacion = rs.getString(3);
+                                                        nombre_departamento = rs.getString(4);
+                                                        nombre_municipio = rs.getString(5);
+                                                        nombre_sector_domicilio = rs.getString(6);
+                                                        latitud = rs.getString(7);
+                                                        longitud = rs.getString(8);
                                                 %>
                                                 <tr role="row" class="odd">
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
-                                                            <%=identidad%>
+                                                            <%=codigo_mesa%>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
-                                                            <%=nombres%>
+                                                            <%=centro_de_votacion%>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
-                                                            <%=apellidos%>
+                                                            <%=nombre_sector_domicilio%>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
-                                                            <%=sexo%>
+
+                                                            <%=nombre_departamento%>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
-                                                            <%=estatus%>
+                                                            <%=nombre_municipio%>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
-                                                            <a href="votantes.jsp?identidad=<%=identidad%>&centro=<%=centro%>&latitud=<%=latitud%>&longitud=<%=longitud%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver Votante</a>
+                                                            <!--<a href="href="modificar.jsp?p_cuenta=<%=id_mesa%>&p_nombres=<%=longitud%>&p_apellidos=<%=codigo_mesa%>&p_editar=1"> Ver ubicación</a>-->
+                                                            <a href="mesas-electorales.jsp?p_cuenta=<%=id_mesa%>&p_nombres=<%=latitud%>&p_apellidos=<%=longitud%>&p_centro=<%=centro_de_votacion%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver ubicación</a>
                                                         </div>
                                                     </td>
                                                 </tr>

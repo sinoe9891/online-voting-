@@ -244,7 +244,9 @@ tr.odd {
     font-size: 20px !important;
     margin-right: 1.38rem !important;
 }
-
+.id_mapa_ver{
+                display: none;
+            }
 @media only screen and (max-width: 769px) {
     .imagen-login {
         display: none;

@@ -61,14 +61,17 @@
                                     <div class="input-form">
                                         <label for="Usuario">Role</label>
                                         <select name="role" >
-                                            <option value="5">
-                                                Votante
-                                            </option>
                                             <option value="3">
                                                 Magistrado
                                             </option>
+                                            <option value="5">
+                                                Miembro de Mesa
+                                            </option>
                                             <option value="1">
                                                 Administrador
+                                            </option>
+                                            <option value="4">
+                                                Votante
                                             </option>
                                         </select>
                                     </div>
