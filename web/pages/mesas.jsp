@@ -40,246 +40,193 @@
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/components.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/dark-layout.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/bordered-layout.css">
-        <!--<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>-->
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7Ys2hwRXTru00HE2Dxn6BEGU7t6s2_A&callback=initMap"></script>
-        <script type="text/javascript">
 
-            function mostrar_mapa(centinela) {
-
-                //UbicaciÃ³n inicial del mapa.
-                var ubicacion = new google.maps.LatLng(<%= request.getParameter("p_nombres")%>,<%= request.getParameter("p_apellidos")%>); //Latitud y Longitud
-
-                console.log(ubicacion.lat());
-                if (ubicacion.lat() == 0 && ubicacion.lng() == 0) {
-                    document.getElementById("id_mapa_ver").style.display = "none";
-                } else {
-                    document.getElementById("id_mapa_ver").style.display = "initial";
-                }
-
-
-                //ParÃ¡metros Iniciales
-                var opciones = {zoom: <%= request.getParameter("zoom_m")%>, //acercamiento
-                    center: ubicacion,
-                    mapTypeId: google.maps.MapTypeId.SATELLITE, //Las posibles opciones son ROADMAP/SATELLITE/HYBRID/TERRA
-                    disableDefaultUI: true,
-                    disableDoubleClickZoom: true,
-                    draggable: false
-                };
-
-                //Creacion del mapa
-                var map = new google.maps.Map(document.getElementById("mapa"), opciones);
-
-                //recuperar ubicacion donde hago click
-                var iw = new google.maps.InfoWindow(
-                        {content: '<%= request.getParameter("p_centro")%>',
-                            position: ubicacion});
-                iw.open(map);
-                // configurar evento click sobre el mapa
-//                map.addListener('click', function (mapsMouseEvent) {
-//                    iw.close();
-//                    iw = new google.maps.InfoWindow({position: mapsMouseEvent.latLng});
-//                    iw.setContent(mapsMouseEvent.latLng.toString());
-//                    iw.open(map);
-//                });
-
-
-                if (centinela == 1) {
-                    //Colocar una marca sobre el Mapa
-                    mi_ubicacion = new google.maps.Marker({
-                        position: new google.maps.LatLng(14.104173, -87.186145), //PosiciÃ³n de la marca
-                        icon: 'persona.jpg', //Imagen que aparecerÃ¡ en la marca, debe estar en el server
-                        map: map, //Mapa donde estarÃ¡ la marca
-                        title: 'Danny Velásquez' //TÃ­tulo all hacer un mouseover
-                    });
-
-                    //Mostrar InformaciÃ³n al hacer click en la marca
-                    var infowindow = new google.maps.InfoWindow({
-                        content: 'Elaborado Por: Danny Velásquez Cadenas<br/>'
-                    });
-
-                    google.maps.event.addListener(mi_ubicacion, 'click', function () {
-                        //Calling the open method of the InfoWindow
-                        infowindow.open(map, mi_ubicacion);
-                    });
-                }
-            }
-
-
-
-        </script>
-        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
-        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>-->
-
-
+        <!-- BEGIN: Page CSS-->
+        <!-- <link rel="stylesheet" type="text/css" href="../src/app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="../src/app-assets/css/plugins/forms/form-validation.css">
+    <link rel="stylesheet" type="text/css" href="../src/app-assets/css/pages/app-user.css"> -->
+        <!-- END: Page CSS-->
         <style>
-            .mesas a{
+            .presidente a{
                 color:#c3151c;
             }
-            span.switch-icon-left {
-                display: none;
-            }
-            span.switch-icon-right {
-                display: none;
-            }
         </style>
-    </head>   
+    </head>  
+
+    <script>
+        function mod(pid, pnp, pd, pep) {
+            var modal2 = document.getElementById("myModal");
+            document.getElementById("idh1").value = pid;
+            document.getElementById("ids1").value = pnp;
+            document.getElementById("ids2").value = pd;
+            document.getElementById("ids3").value = pep;
+        }
+
+    </script>
+
     <body>
         <div class="main-sidebar">
             <div class="container-login">
-                <%@include file="sidebar-votante.jsp" %>
+                <%@include file="sidebar.jsp" %>
                 <div class="main-body-page"> 
                     <div class="content-wrapper">
                         <div class="content-body">
                             <section class="app-user-list">
                                 <div class="card">
                                     <div class="nav-header">
-                                        <div style="width: 50%;">
-                                            <h3>Mesas Electorales</h3>
+                                        <div style="width: 100%;">
+                                            <div style="display: flex;justify-content: space-between;margin:5px 0 15px 0">
+                                                <a href="presidente.jsp"><i class="fas fa-arrow-left"></i>Regresar</a>
+                                                <a href="../index.jsp"><i class="fas fa-sign-out-alt"></i>Cerrar Sesión</a>
+                                            </div>
+                                            <h3>Gestionar Presidentes</h3>
                                         </div>
-                                        <div style="text-align:right;width: 50%;">
-                                            <a href="mesas-encargado.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>
-                                            <!--<button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
-                                                <button class="btn add-new btn-warning mt-100" type="button"><span>Modificar</span></button>
-                                                <button class="btn add-new btn-danger mt-100" type="button"><span>Eliminar</span></button>-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="app-user-list" id="id_mapa_ver">
-                                <div class="card">
-                                    <div class="nav-header">
-                                        <div>
-                                            <center>
-                                                <body onload="mostrar_mapa(0)" >
-                                                    <br>
-                                                    <br>
-                                                    <h4>Ubicación de Sector Domicilio</h4>
-                                                    <br>
-                                                    <br>
-                                                    <div id="mapa" style="width: 650px; height: 400px;"></div>
-                                                </body>
-                                            </center>
-                                        </div>
-                                        <div>
-                                            <%
-                                                //paso #2 si preciono el link 
-                                                if (request.getParameter("ver_mapa") != null) {
-                                            %>
-                                            <section class="app-user-list" id="id_mapa_ver">
-                                                <div class="card">
-                                                        <h4>Información del Ciudadano</h4>
-                                                    <div class="nav-header">
-                                                        <div class="card">
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item">NÚMERO DE IDENTIDAD: <strong> <%= request.getParameter("p_cuenta")%> </strong></li>
-                                                                <li class="list-group-item">NOMBRE APARECE EN CENSO: <strong> <%= request.getParameter("p_nombres")%></strong></li>
-                                                                <li class="list-group-item">SEXO: <strong><%= request.getParameter("p_apellidos")%></strong></li>
-                                                                <li class="list-group-item">FECHA DE NACIMIENTO: <strong><%= request.getParameter("p_centro")%></strong></li>
-                                                                <li class="list-group-item">ESTADO EN CENSO: <strong><%= request.getParameter("p_apellidos")%></strong></li>
-
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </section>
-                                        </div>
-
-
-                                        <%
-                                            }
-                                        %>
                                     </div>
                                 </div>
                             </section>
                             <section class="app-user-list">
                                 <div class="card">
-                                    <div class="card-datatable table-responsive pt-0" style='padding: 1rem; !important'>
-                                        <div class="card-header border-bottom">
-                                            <h4 class="card-title">Mesas Electorales</h4>
+
+
+                                    <%
+                                        if (request.getParameter("p_eliminar") != null) {
+                                            //ELIMINAR PRODUCTO----------------------------------------------- 
+                                            try {
+                                                Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+                                                db.conectar();
+                                                int contador = db.query.executeUpdate("delete from presidente WHERE id_presidente='" + request.getParameter("p_id") + "' ");
+                                                db.commit();
+                                                db.desconectar();
+                                                if (contador >= 1) {
+                                                    String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>Registro Eliminado</h4></div>";
+                                                    out.print(alerta);
+                                                }
+                                            } catch (Exception e) {
+                                                String alerta = "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>Registro Eliminado</h4></div>";
+                                                out.print(alerta);
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    %>
+
+
+                                    <%
+                                        //MODIFICAR un producto-----------------------------------------------   
+                                        if (request.getParameter("bt_modificar") != null) {
+                                            try {
+                                                Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+                                                db.conectar();
+                                                int contador = db.query.executeUpdate("UPDATE presidente "
+                                                        + "SET nombre_presidente='" + request.getParameter("ti_nombre_presidente") + "',   "
+                                                        + "photo_profile='" + request.getParameter("ti_url_photo") + "',   "
+                                                        + "genero_presidente='" + request.getParameter("genero_presidente") + "'"
+                                                        + "WHERE id_presidente='" + request.getParameter("ti_id") + "' ");
+                                                if (contador >= 1) {
+                                                    String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>El registro se modificó correctamente</h4></div>";
+                                                    out.print(alerta);
+                                                }
+                                                db.commit();
+                                                db.desconectar();
+                                            } catch (Exception e) {
+                                                String alerta = "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>El registro no se modificó</h4></div>";
+                                                out.print(alerta);
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    %>
+
+
+                                    <section class="app-user-list">
+                                        <div class="card">
+                                            <div class="card-datatable table-responsive pt-0">
+                                                <h3>Lista de Presidentes</h3>
+                                                <table class="user-list-table ">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <!--<th data-field="id">ID</th>-->
+                                                            <th data-field="nombre" data-editable="false">FOTO</th>
+                                                            <th data-field="descripcion" data-editable="false">NOMBRE</th>
+                                                            <th data-field="operaciones" data-editable="false">PARTIDO</th>
+                                                            <th data-field="operaciones" data-editable="false">NOMBRE MOVIMIENTO</th>
+                                                            <th data-field="operaciones" data-editable="false">GENERO</th>
+                                                            <th data-field="operaciones" data-editable="false">ACCIONES</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+                                                            db.conectar();
+                                                            db.query.execute("SELECT a.id_presidente, a.nombre_presidente, a.photo_profile, a.src_url_logo_movimiento, a.genero_presidente, a.id_parti_presidente, a.nombre_movimiento_partido, b.id, b.nombre, b.src_url_logo FROM presidente a, partidos_politicos b WHERE a.id_parti_presidente = b.id  ORDER BY a.id_presidente DESC");
+                                                            ResultSet rs = db.query.getResultSet();
+                                                            String id_presidente, nombre, photo, url_logo, genero, partido_politico, nombre_movimiento, src_url_logo;
+                                                            while (rs.next()) {
+
+                                                                id_presidente = rs.getString(1);
+                                                                partido_politico = rs.getString(9);
+                                                                nombre = rs.getString(2);
+                                                                photo = rs.getString(3);
+                                                                url_logo = rs.getString(4);
+                                                                genero = rs.getString(5);
+                                                                nombre_movimiento = rs.getString(7);
+                                                                src_url_logo = rs.getString(10);
+                                                        %>
+                                                        <tr role="row" class="odd">
+                                                            <!--                                                            <td>
+                                                                                                                            <div class="d-flex justify-content-left align-items-center">
+                                                            <%=id_presidente%>
+                                                        </div>
+                                                    </td>-->
+                                                            <td>
+                                                                <div class="img-logo-gestionar-partido">
+                                                                    <img src="<%=photo%>" alt="<%=photo%>" style="width: 60% !important;">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                    <%=nombre%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                    <%=partido_politico%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+
+                                                                    <%=nombre_movimiento%>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                    <%=genero%>
+                                                                </div>
+                                                            </td>
+                                                            <td> 
+                                                                <div class="dropdown">
+                                                                    <button type="button" class="btn btn-sm text-white dropdown-toggle hide-arrow" data-toggle="dropdown">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical" style="
+                                                                             color: black;"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id_presidente%>', '<%=nombre%>', '<%=photo%>', '<%=genero%>')">
+                                                                            <i data-feather="edit-2" class="mr-50"></i>
+                                                                            <span>Modificar</span>
+                                                                        </a>
+                                                                        <a class="dropdown-item" href="mesas.jsp?p_id=<%=id_presidente%>&p_eliminar=1">
+                                                                            <i data-feather="trash" class="mr-50"></i>
+                                                                            <span>Eliminar</span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <%  }%>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                        <table class="user-list-table "  id="datatable">
-                                            <thead class="thead-light">
-                                                <tr class = "thead-dark">
-                                                    <th data-field="nombre" data-editable="false">NÚMERO DE MESA</th>
-                                                    <th data-field="operaciones" data-editable="false">CENTRO DE VOTACIÓN</th>
-                                                    <th data-field="operaciones" data-editable="false">SECTOR DOMICILIO</th>
-                                                    <th data-field="descripcion" data-editable="false">DEPARTAMENTO</th>
-                                                    <th data-field="operaciones" data-editable="false">ESTADO DE MESA</th>
-                                                    <th data-field="operaciones" data-editable="false">UBICACIÓN</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
-
-                                                    db.conectar();
-
-                                                    db.query.execute(
-                                                            "SELECT a.id_mesa, a.numero_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.nombre_sector_domicilio, a.latitud, a.longitud, a.status_mesa "
-                                                            + "FROM mesas_electorales a, departamentos b, municipios c "
-                                                            + "WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
-                                                    ResultSet rs = db.query.getResultSet();
-                                                    String id_mesa, codigo_mesa, centro_de_votacion, nombre_departamento, nombre_municipio, nombre_sector_domicilio, latitud, longitud, estatus, estado_mesa;
-                                                    Boolean estado;
-                                                    while (rs.next()) {
-
-                                                        id_mesa = rs.getString(1);
-                                                        codigo_mesa = rs.getString(2);
-                                                        centro_de_votacion = rs.getString(3);
-                                                        nombre_departamento = rs.getString(4);
-                                                        nombre_municipio = rs.getString(5);
-                                                        nombre_sector_domicilio = rs.getString(6);
-                                                        latitud = rs.getString(7);
-                                                        longitud = rs.getString(8);
-                                                        estado = rs.getBoolean(9);
-
-                                                        if (estado) {
-                                                            estado_mesa = "Habilitada";
-                                                            estatus = "checked";
-                                                        } else {
-                                                            estado_mesa = "Inhabilitada";
-                                                            estatus = "";
-                                                        }
-                                                %>
-                                                <tr role="row" class="odd">
-                                                    <td>
-                                                        <div class="d-flex justify-content-left align-items-center">
-                                                            <%=codigo_mesa%>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-left align-items-center">
-                                                            <%=centro_de_votacion%>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-left align-items-center">
-                                                            <%=nombre_sector_domicilio%>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-left align-items-center">
-
-                                                            <%=nombre_departamento%>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch custom-switch-success">
-                                                            <p class="mb-50"><%=estado_mesa%></p>
-                                                            <input type="checkbox" class="custom-control-input" id="customSwitch111" <%=estatus%> disabled />
-                                                            <label class="custom-control-label" for="customSwitch111">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-left align-items-center">
-                                                            <a href="mesas.jsp?p_cuenta=<%=id_mesa%>&p_nombres=<%=latitud%>&p_apellidos=<%=longitud%>&p_centro=<%=centro_de_votacion%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver ubicación</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <%  }%>
-                                            </tbody> 
-                                        </table>
-                                    </div>
+                                    </section>
                                 </div>
                             </section>
                         </div>
@@ -287,12 +234,53 @@
                 </div>
             </div>
         </div>
+        <!--Modal-->
+        <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+            <div d="myModal" class="modal-dialog modal-dialog-centered" role="document" i>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel33">Modificar Partido Político</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form name="fM1" action="mesas.jsp" method="POST">
+                        <input type="hidden" id="idh1" name="ti_id" value="" />
+                        <div class="modal-body">
+                            <label>Nombre Partido Político: </label>
+                            <div class="form-group">
+                                <input id="ids1" type="text" name="ti_nombre_presidente" value="" class="form-control"/>
+                            </div>
+
+                            <label>URL de Bandera: </label>
+                            <div class="form-group">
+                                <input id="ids2" type="text" name="ti_url_photo" value="" class="form-control"/>
+                            </div>
+
+                            <label>Género: </label>
+                            <div class="form-group">
+                                <input id="ids3" type="text" name="genero_presidente" value="" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" value="Modificar Producto" name="bt_modificar" /><br>    
+                            <!--<button type="button" name="bt_modificar" class="btn btn-primary" data-dismiss="modal">Actualizar</button>-->
+                        </div>
+                    </form>    
+                </div>
+            </div>
+        </div>
+
+
+
+
+
 
         <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
         <script>
-                                                                $("#datatable").DataTable();
+                                                                            $("#datatable").DataTable();
         </script>
         <!-- BEGIN: Vendor JS-->
         <script src="../src/app-assets/vendors/js/vendors.min.js"></script>
@@ -310,14 +298,14 @@
         <script src="../src/app-assets/js/scripts/tables/table-datatables-advanced.js"></script>
         <!-- END: Page Vendor JS-->
         <script>
-                                                                $(window).on('load', function () {
-                                                                    if (feather) {
-                                                                        feather.replace({
-                                                                            width: 14,
-                                                                            height: 14
-                                                                        });
-                                                                    }
-                                                                })
+                                                                            $(window).on('load', function () {
+                                                                                if (feather) {
+                                                                                    feather.replace({
+                                                                                        width: 14,
+                                                                                        height: 14
+                                                                                    });
+                                                                                }
+                                                                            })
         </script> 
         <!-- BEGIN: Theme JS-->
         <script src="../src/app-assets/js/core/app-menu.js"></script>
@@ -327,5 +315,7 @@
         <!-- BEGIN: Page JS-->
         <script src="../src/app-assets/js/scripts/pages/app-user-list.js"></script>
         <!-- END: Page JS-->
-    </body> 
+
+    </body>
+
 </html>
