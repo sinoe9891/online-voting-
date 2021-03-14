@@ -1,3 +1,5 @@
 /dist/
 build/
 /build/
+doc/*.mdb
+doc/*.ldb
