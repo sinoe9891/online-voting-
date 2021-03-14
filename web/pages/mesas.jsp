@@ -54,12 +54,11 @@
     </head>  
 
     <script>
-        function mod(pid, pnp, pd, pep) {
+        function mod(pid, pnp, pd) {
             var modal2 = document.getElementById("myModal");
             document.getElementById("idh1").value = pid;
             document.getElementById("ids1").value = pnp;
             document.getElementById("ids2").value = pd;
-            document.getElementById("ids3").value = pep;
         }
 
     </script>
@@ -94,7 +93,7 @@
                                             try {
                                                 Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                 db.conectar();
-                                                int contador = db.query.executeUpdate("delete from presidente WHERE id_presidente='" + request.getParameter("p_id") + "' ");
+                                                int contador = db.query.executeUpdate("delete from mesas_electorales WHERE id_mesa='" + request.getParameter("p_id") + "' ");
                                                 db.commit();
                                                 db.desconectar();
                                                 if (contador >= 1) {
@@ -116,11 +115,10 @@
                                             try {
                                                 Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                 db.conectar();
-                                                int contador = db.query.executeUpdate("UPDATE presidente "
-                                                        + "SET nombre_presidente='" + request.getParameter("ti_nombre_presidente") + "',   "
-                                                        + "photo_profile='" + request.getParameter("ti_url_photo") + "',   "
-                                                        + "genero_presidente='" + request.getParameter("genero_presidente") + "'"
-                                                        + "WHERE id_presidente='" + request.getParameter("ti_id") + "' ");
+                                                int contador = db.query.executeUpdate("UPDATE mesas_electorales "
+                                                        + "SET centro_de_votacion='" + request.getParameter("nombre_centro") + "',   "
+                                                        + "status_mesa='" + request.getParameter("estado_mesa") + "'"
+                                                        + "WHERE id_mesa='" + request.getParameter("ti_id") + "' ");
                                                 if (contador >= 1) {
                                                     String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>El registro se modificó correctamente</h4></div>";
                                                     out.print(alerta);
@@ -144,62 +142,80 @@
                                                     <thead class="thead-light">
                                                         <tr>
                                                             <!--<th data-field="id">ID</th>-->
-                                                            <th data-field="nombre" data-editable="false">FOTO</th>
-                                                            <th data-field="descripcion" data-editable="false">NOMBRE</th>
-                                                            <th data-field="operaciones" data-editable="false">PARTIDO</th>
-                                                            <th data-field="operaciones" data-editable="false">NOMBRE MOVIMIENTO</th>
-                                                            <th data-field="operaciones" data-editable="false">GENERO</th>
+                                                            <th data-field="nombre" data-editable="false">NÚMERO DE MESA</th>
+                                                            <th data-field="operaciones" data-editable="false">CENTRO DE VOTACIÓN</th>
+                                                            <th data-field="descripcion" data-editable="false">DEPARTAMENTO</th>
+                                                            <th data-field="operaciones" data-editable="false">ESTADO DE MESA</th>
+                                                            <th data-field="operaciones" data-editable="false">ESTADO</th>
                                                             <th data-field="operaciones" data-editable="false">ACCIONES</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
 
                                                         <% Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+
                                                             db.conectar();
-                                                            db.query.execute("SELECT a.id_presidente, a.nombre_presidente, a.photo_profile, a.src_url_logo_movimiento, a.genero_presidente, a.id_parti_presidente, a.nombre_movimiento_partido, b.id, b.nombre, b.src_url_logo FROM presidente a, partidos_politicos b WHERE a.id_parti_presidente = b.id  ORDER BY a.id_presidente DESC");
+
+                                                            db.query.execute(
+                                                                    "SELECT a.id_mesa, a.numero_mesa, a.centro_de_votacion, b.nombre_departamento, c.nombre_municipio, a.nombre_sector_domicilio, a.latitud, a.longitud, a.status_mesa "
+                                                                    + "FROM mesas_electorales a, departamentos b, municipios c "
+                                                                    + "WHERE a.id_departamento_mesa = b.id_departamento AND a.id_municipio_mesa = c.id_municipio ORDER BY a.centro_de_votacion DESC");
                                                             ResultSet rs = db.query.getResultSet();
-                                                            String id_presidente, nombre, photo, url_logo, genero, partido_politico, nombre_movimiento, src_url_logo;
+                                                            String id_mesa, codigo_mesa, centro_de_votacion, nombre_departamento, nombre_municipio, nombre_sector_domicilio, latitud, longitud, estatus, estado_mesa;
+                                                            Boolean estado;
                                                             while (rs.next()) {
 
-                                                                id_presidente = rs.getString(1);
-                                                                partido_politico = rs.getString(9);
-                                                                nombre = rs.getString(2);
-                                                                photo = rs.getString(3);
-                                                                url_logo = rs.getString(4);
-                                                                genero = rs.getString(5);
-                                                                nombre_movimiento = rs.getString(7);
-                                                                src_url_logo = rs.getString(10);
+                                                                id_mesa = rs.getString(1);
+                                                                codigo_mesa = rs.getString(2);
+                                                                centro_de_votacion = rs.getString(3);
+                                                                nombre_departamento = rs.getString(4);
+                                                                nombre_municipio = rs.getString(5);
+                                                                nombre_sector_domicilio = rs.getString(6);
+                                                                latitud = rs.getString(7);
+                                                                longitud = rs.getString(8);
+                                                                estado = rs.getBoolean(9);
+
+                                                                if (estado) {
+                                                                    estatus = "ABIERTA";
+                                                                    estado_mesa = "checked";
+                                                                } else {
+                                                                    estatus = "CERRADA";
+                                                                    estado_mesa = "";
+                                                                }
+
                                                         %>
                                                         <tr role="row" class="odd">
                                                             <!--                                                            <td>
                                                                                                                             <div class="d-flex justify-content-left align-items-center">
-                                                            <%=id_presidente%>
+                                                            <%=id_mesa%>
                                                         </div>
                                                     </td>-->
                                                             <td>
                                                                 <div class="img-logo-gestionar-partido">
-                                                                    <img src="<%=photo%>" alt="<%=photo%>" style="width: 60% !important;">
+                                                                    <%=codigo_mesa%>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=nombre%>
+                                                                    <%=centro_de_votacion%>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=partido_politico%>
+                                                                    <%=nombre_departamento%>
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <div class="d-flex justify-content-left align-items-center">
-
-                                                                    <%=nombre_movimiento%>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex justify-content-left align-items-center">
-                                                                    <%=genero%>
+                                                                <!--                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                <%=estatus%>
+                                                                
+                                                            </div>-->
+                                                                <div class="custom-control custom-switch custom-switch-success">
+                                                                    <input type="checkbox" class="custom-control-input" id="customSwitch111" <%=estado_mesa%> disabled="disabled"/>
+                                                                    <label class="custom-control-label" for="customSwitch111">
+                                                                        <span class="switch-icon-left"><i data-feather="check"></i></span>
+                                                                        <span class="switch-icon-right"><i data-feather="x"></i></span>
+                                                                    </label>
                                                                 </div>
                                                             </td>
                                                             <td> 
@@ -209,15 +225,20 @@
                                                                              color: black;"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                                                     </button>
                                                                     <div class="dropdown-menu">
-                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id_presidente%>', '<%=nombre%>', '<%=photo%>', '<%=genero%>')">
+                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id_mesa%>', '<%=centro_de_votacion%>', '<%=estado%>')">
                                                                             <i data-feather="edit-2" class="mr-50"></i>
                                                                             <span>Modificar</span>
                                                                         </a>
-                                                                        <a class="dropdown-item" href="mesas.jsp?p_id=<%=id_presidente%>&p_eliminar=1">
+                                                                        <a class="dropdown-item" href="mesas.jsp?p_id=<%=id_mesa%>&p_eliminar=1">
                                                                             <i data-feather="trash" class="mr-50"></i>
                                                                             <span>Eliminar</span>
                                                                         </a>
                                                                     </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-left align-items-center">
+                                                                    <a href="mesas2.jsp?id_mesa=<%=id_mesa%>&p_nombres=<%=latitud%>&p_apellidos=<%=longitud%>&p_centro=<%=centro_de_votacion%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver información</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -247,19 +268,21 @@
                     <form name="fM1" action="mesas.jsp" method="POST">
                         <input type="hidden" id="idh1" name="ti_id" value="" />
                         <div class="modal-body">
-                            <label>Nombre Partido Político: </label>
+                            <label>Estado de Mesa: </label>
                             <div class="form-group">
-                                <input id="ids1" type="text" name="ti_nombre_presidente" value="" class="form-control"/>
+                                <select class="form-control" id="ids3" name="estado_mesa">
+                                    <option value="TRUE" selected>
+                                        Abierta
+                                    </option>
+                                    <option value="FALSE">
+                                        Cerrada
+                                    </option>
+                                </select>
                             </div>
 
-                            <label>URL de Bandera: </label>
+                            <label>Nombre de Centro: </label>
                             <div class="form-group">
-                                <input id="ids2" type="text" name="ti_url_photo" value="" class="form-control"/>
-                            </div>
-
-                            <label>Género: </label>
-                            <div class="form-group">
-                                <input id="ids3" type="text" name="genero_presidente" value="" class="form-control"/>
+                                <input id="ids1" type="text" name="nombre_centro" value="" class="form-control"/>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -276,12 +299,6 @@
 
 
 
-        <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
-        <script>
-                                                                            $("#datatable").DataTable();
-        </script>
         <!-- BEGIN: Vendor JS-->
         <script src="../src/app-assets/vendors/js/vendors.min.js"></script>
         <!-- BEGIN Vendor JS-->
@@ -291,22 +308,11 @@
         <script src="../src/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
         <script src="../src/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
         <script src="../src/app-assets/vendors/js/tables/datatable/responsive.bootstrap4.js"></script>
-        <!--<script src="../src/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>-->
         <script src="../src/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
         <script src="../src/app-assets/vendors/js/tables/datatable/buttons.bootstrap4.min.js"></script>
         <script src="../src/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
-        <script src="../src/app-assets/js/scripts/tables/table-datatables-advanced.js"></script>
         <!-- END: Page Vendor JS-->
-        <script>
-                                                                            $(window).on('load', function () {
-                                                                                if (feather) {
-                                                                                    feather.replace({
-                                                                                        width: 14,
-                                                                                        height: 14
-                                                                                    });
-                                                                                }
-                                                                            })
-        </script> 
+
         <!-- BEGIN: Theme JS-->
         <script src="../src/app-assets/js/core/app-menu.js"></script>
         <script src="../src/app-assets/js/core/app.js"></script>

@@ -202,7 +202,7 @@
                                             %>
                                             <section class="app-user-list" id="id_mapa_ver">
                                                 <div class="card">
-                                                    <h4>Información del Ciudadano</h4>
+                                                    <h4>Información de la Mesa</h4>
                                                     <div class="">
                                                         <ul class="list-group list-group-flush">
                                                             <li class="list-group-item">NÚMERO DE MESA <strong> <%=numero_mesa%> </strong></li>
@@ -347,7 +347,7 @@
             <div d="myModal" class="modal-dialog modal-dialog-centered" role="document" i>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel33">Modificar Partido Político</h4>
+                        <h4 class="modal-title" id="myModalLabel33">Modificar Mesa</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -381,7 +381,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
         <script>
-            $("#datatable").DataTable();
+                                                                $("#datatable").DataTable();
         </script>
         <!-- BEGIN: Vendor JS-->
         <script src="../src/app-assets/vendors/js/vendors.min.js"></script>
@@ -399,7 +399,7 @@
         <script src="../src/app-assets/js/scripts/tables/table-datatables-advanced.js"></script>
         <!-- END: Page Vendor JS-->
         <script>
-            
+
         </script> 
         <!-- BEGIN: Theme JS-->
         <script src="../src/app-assets/js/core/app-menu.js"></script>
