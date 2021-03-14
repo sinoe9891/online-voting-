@@ -146,7 +146,7 @@
                                             <h3>Mesas Electorales</h3>
                                         </div>
                                         <div style="text-align:right;width: 50%;">
-                                            <a href="mesas-electorales-edit.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>
+                                            <a href="mesas-electorales-edit.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Agregar una Mesa</span></button></a>
                                             <!--<button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
                                                 <button class="btn add-new btn-warning mt-100" type="button"><span>Modificar</span></button>
                                                 <button class="btn add-new btn-danger mt-100" type="button"><span>Eliminar</span></button>-->
@@ -233,7 +233,7 @@
                                             try {
                                                 Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                 db.conectar();
-                                                int contador = db.query.executeUpdate("delete from mesas_electorales WHERE id_mesa='" + request.getParameter("ti_id") + "' ");
+                                                int contador = db.query.executeUpdate("delete from mesas_electorales WHERE id_mesa='" + request.getParameter("p_id") + "' ");
                                                 db.commit();
                                                 db.desconectar();
                                                 if (contador >= 1) {
@@ -332,10 +332,10 @@
                                                             <%=nombre_departamento%>, <%=nombre_municipio%>
                                                         </div>
                                                     </td>
-                                                    
+
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
-                                                            <i class="fas fa-external-link-square-alt"></i><a href="mesas.jsp?id_mesa=<%=id_mesa%>&p_nombres=<%=latitud%>&p_apellidos=<%=longitud%>&p_centro=<%=centro_de_votacion%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver información</a>
+                                                            <i class="fas fa-external-link-square-alt"></i><a href="mesas-electorales.jsp?id_mesa=<%=id_mesa%>&p_nombres=<%=latitud%>&p_apellidos=<%=longitud%>&p_centro=<%=centro_de_votacion%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver información</a>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -351,7 +351,7 @@
                                                     <td> 
                                                         <div class="dropdown">
                                                             <a data-toggle="dropdown">
-                                                            <i class="fas fa-door-open"></i>
+                                                                <i class="fas fa-door-open"></i>
                                                                 <i class="fas fa-edit"></i>
                                                             </a>
                                                             <div class="dropdown-menu">
@@ -359,7 +359,7 @@
                                                                     <i data-feather="edit-2" class="mr-50"></i>
                                                                     <span>Modificar</span>
                                                                 </a>
-                                                                <a class="dropdown-item" href="mesas.jsp?p_id=<%=id_mesa%>&p_eliminar=1">
+                                                                <a class="dropdown-item" href="mesas-electorales.jsp?p_id=<%=id_mesa%>&p_eliminar=1">
                                                                     <i data-feather="trash" class="mr-50"></i>
                                                                     <span>Eliminar</span>
                                                                 </a>
@@ -388,7 +388,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form name="fM1" action="mesas.jsp" method="POST">
+                    <form name="fM1" action="mesas-electorales.jsp" method="POST">
                         <input type="hidden" id="idh1" name="ti_id" value="" />
                         <div class="modal-body">
                             <label>Estado de Mesa: </label>
