@@ -42,7 +42,7 @@
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/bordered-layout.css">
 
         <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-        
+
         <!-- BEGIN: Page CSS-->
         <!-- <link rel="stylesheet" type="text/css" href="../src/app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="../src/app-assets/css/plugins/forms/form-validation.css">
@@ -52,17 +52,21 @@
             .mesas a{
                 color:#c3151c;
             }
+            td {
+                padding: 0.90rem 1.5rem !important;
+            }
         </style>
     </head>  
 
     <script>
-        function mod(pid, pnp, pd, pep, log) {
+        function mod(pid, pnp, pd, pep, log, fiv) {
             var modal2 = document.getElementById("myModal");
             document.getElementById("idh1").value = pid;
             document.getElementById("ids1").value = pnp;
             document.getElementById("ids2").value = pd;
             document.getElementById("ids3").value = pep;
-            document.getElementById("ids3").value = log;
+            document.getElementById("ids4").value = log;
+            document.getElementById("ids5").value = fiv;
         }
 
     </script>
@@ -96,6 +100,7 @@
                                                 Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
                                                 db.conectar();
                                                 String centro_de_votacion = request.getParameter("centro_de_votacion");
+                                                String numero_mesa = request.getParameter("numero_mesa");
                                                 String latitud = request.getParameter("latitud");
                                                 String nombredomicilio = request.getParameter("nombredomicilio");
                                                 String longitud = request.getParameter("longitud");
@@ -103,14 +108,15 @@
                                                 String id_municipio_mesa = request.getParameter("id_municipio_mesa");
                                                 //db.query.executeUpdate("SET CHARACTER SET 'UTF8'");
                                                 int contador = db.query.executeUpdate("INSERT into mesas_electorales"
-                                                        + "(centro_de_votacion,nombre_sector_domicilio,latitud,longitud,id_departamento_mesa,id_municipio_mesa) "
+                                                        + "(centro_de_votacion,nombre_sector_domicilio,latitud,longitud,id_departamento_mesa,id_municipio_mesa,numero_mesa) "
                                                         + "VALUES('"
                                                         + centro_de_votacion + "'"
                                                         + ",'" + nombredomicilio + "'"
                                                         + ",'" + latitud + "'"
                                                         + ",'" + longitud + "'"
                                                         + ",'" + id_departamento_mesa + "'"
-                                                        + ",'" + id_municipio_mesa
+                                                        + ",'" + id_municipio_mesa + "'"
+                                                        + ",'" + numero_mesa
                                                         + "')");
 
                                                 request.setCharacterEncoding("UTF-8");
@@ -161,6 +167,7 @@
                                                 int contador = db.query.executeUpdate("UPDATE mesas_electorales "
                                                         + "SET centro_de_votacion='" + request.getParameter("ti_nombre_presidente") + "',   "
                                                         + "nombre_sector_domicilio='" + request.getParameter("ti_url_photo") + "',   "
+                                                        + "numero_mesa='" + request.getParameter("ti_numero_mesa") + "',   "
                                                         + "latitud='" + request.getParameter("latitud_mesa") + "',   "
                                                         + "longitud='" + request.getParameter("longitud_mesa") + "'"
                                                         + "WHERE id_mesa='" + request.getParameter("ti_id") + "' ");
@@ -184,6 +191,10 @@
                                                     <form name="f1" action="mesas-electorales-edit.jsp" method="POST">
                                                         <h3>Agregar Mesa Electoral</h3>
                                                         <div class="modal-body flex-grow-1">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="name-presidente">Número de Mesa</label>
+                                                                <input type="text" name="numero_mesa" class="form-control dt-full-name" id="basic-icon-default-fullname" placeholder="0000" >
+                                                            </div>
                                                             <div class="form-group">
                                                                 <label class="form-label" for="name-presidente">Centro de Votación</label>
                                                                 <input type="text" name="centro_de_votacion" class="form-control dt-full-name" id="basic-icon-default-fullname" placeholder="Nombre Centro de Votación" >
@@ -328,7 +339,7 @@
                                                                              color: black;"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                                                     </button>
                                                                     <div class="dropdown-menu">
-                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id_mesa%>', '<%=centro_de_votacion%>', '<%=nombre_sector_domicilio%>', '<%=latitud_centro%>', '<%=longitud_centro%>')">
+                                                                        <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id_mesa%>', '<%=centro_de_votacion%>', '<%=nombre_sector_domicilio%>', '<%=latitud_centro%>', '<%=longitud_centro%>', '<%=codigo_mesa%>')">
                                                                             <i data-feather="edit-2" class="mr-50"></i>
                                                                             <span>Modificar</span>
                                                                         </a>
@@ -372,6 +383,11 @@
                         <input type="hidden" id="idh1" name="ti_id" value="" />
 
                         <div class="modal-body">
+                            <label>Número Mesa: </label>
+                            <div class="form-group">
+                                <input id="ids5" type="text" name="ti_numero_mesa" value="" class="form-control"/>
+                            </div>
+
                             <label>Centro de Votación: </label>
                             <div class="form-group">
                                 <input id="ids1" type="text" name="ti_nombre_presidente" value="" class="form-control"/>

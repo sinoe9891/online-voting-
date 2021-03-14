@@ -249,7 +249,7 @@
                                             }
                                         }
                                     %>
-                                    <div class="card-datatable table-responsive pt-0" style='padding: 1rem; !important'>
+                                    <div class="card-datatable table-responsive pt-0" style='padding: 1rem !important;'>
                                         <div class="card-header border-bottom">
                                             <h4 class="card-title">Mesas Electorales</h4>
                                         </div>
