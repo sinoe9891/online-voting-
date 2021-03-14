@@ -384,7 +384,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <input type="submit" value="Modificar Producto" name="bt_modificar" /><br>    
+                            <input type="submit" value="Modificar Mesa" name="bt_modificar" /><br>    
                             <!--<button type="button" name="bt_modificar" class="btn btn-primary" data-dismiss="modal">Actualizar</button>-->
                         </div>
                     </form>    
