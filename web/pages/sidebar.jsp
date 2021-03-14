@@ -8,6 +8,10 @@
     <nav>
         <ul class="navigation navigation-main">
             <li class="nav-item metricas"><a href="principal.jsp"><i class="fas fa-poll"></i>Métricas</li></a>
+<<<<<<< Updated upstream
+=======
+            <li class="nav-item"><a href="votacion.jsp"><i class="fas fa-sign-out-alt"></i></i>votacion</li></a>
+>>>>>>> Stashed changes
             <li class="nav-item partidos"><a href="partidos-politicos.jsp"><i class="far fa-flag"></i>Partidos Políticos</li></a>
             <li class="nav-item presidente"><a href="presidente.jsp"><i class="fas fa-user"></i>Presidente</li></a>
             <li class="nav-item alcaldes"><a href="#"><i class="fas fa-user-friends"></i>Alcaldes</li></a>
@@ -15,8 +19,13 @@
             <li class="nav-item mesas"><a href="mesas-electorales.jsp"><i class="fas fa-person-booth"></i>Mesas Electorales</li></a>
             <li class="nav-item votantes"><a href="votantes.jsp"><i class="fas fa-users"></i>Votantes</li></a>
             <li class="nav-item usuarios"><a href="usuarios.jsp"><i class="fas fa-user-cog"></i>Usuarios</li></a>
+<<<<<<< Updated upstream
             <li class="nav-item header-item">Configuración</li>
             <li class="nav-item metricas"><a href="../logout.jsp"><i class="fas fa-sign-out-alt"></i></i>Cerrar Sesión</li></a>
+=======
+            <li class="nav-item header-item">TÍTULO</li>
+            <li class="nav-item"><a href="../logout.jsp"><i class="fas fa-sign-out-alt"></i></i>Cerrar Sesión</li></a>
+>>>>>>> Stashed changes
         </ul>
     </nav>
 </div>

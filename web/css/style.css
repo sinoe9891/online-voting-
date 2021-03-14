@@ -238,6 +238,7 @@ input[type="submit"] {
 tr.odd {
     border-bottom: 0.5px solid #ececec;
 }
+<<<<<<< Updated upstream
 .navigation li a i, .navigation li a svg {
     height: 20px !important;
     width: 24px !important;
@@ -247,6 +248,16 @@ tr.odd {
 .id_mapa_ver{
                 display: none;
             }
+=======
+
+.navigation li a i, .navigation li a svg {
+    height: 24px !important;
+    width: 24px !important;
+    font-size: 20px !important;
+    margin-right: 1.38rem;
+}
+
+>>>>>>> Stashed changes
 @media only screen and (max-width: 769px) {
     .imagen-login {
         display: none;

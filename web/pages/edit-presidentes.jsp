@@ -77,7 +77,7 @@
                                         <div style="width: 100%;">
                                             <div style="display: flex;justify-content: space-between;margin:5px 0 15px 0">
                                                 <a href="presidente.jsp"><i class="fas fa-arrow-left"></i>Regresar</a>
-                                                <a href="../index.jsp"><i class="fas fa-sign-out-alt"></i>Cerrar Sesión</a>
+                                                <a href="../logout.jsp"><i class="fas fa-sign-out-alt"></i>Cerrar Sesión</a>
                                             </div>
                                             <h3>Gestionar Presidentes</h3>
                                         </div>

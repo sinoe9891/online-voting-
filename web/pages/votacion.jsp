@@ -17,18 +17,34 @@
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/sidebar.css">
         <link rel="stylesheet" href="css/all.css">
+<<<<<<< Updated upstream
         <link rel="stylesheet" href="css/css/bootstrap.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link rel="stylesheet" type="text/css" href="css/css/pages/app-user.css">
         <link rel="stylesheet" type="text/css" href="css/css/components.css">
+=======
+        <link rel="stylesheet" href="src/app-assets/css/bootstrap.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="stylesheet" type="text/css" href="src/app-assets/css/pages/app-user.css">
+        <link rel="stylesheet" type="text/css" href="src/app-assets/css/components.css">
+>>>>>>> Stashed changes
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
         <title>Votación Online</title>
         <link rel="shortcut icon" href="src/img/unitec.ico" type="image/x-icon">
         <!-- BEGIN: Vendor CSS-->
         <link rel="stylesheet" type="text/css" href="src/app-assets/vendors/css/vendors.min.css">
+<<<<<<< Updated upstream
         <link rel="stylesheet" type="text/css" href="src/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" type="text/css" href="src/app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css">
         <link rel="stylesheet" type="text/css" href="src/app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css">
+=======
+        <link rel="stylesheet" type="text/css"
+              href="src/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css"
+              href="src/app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css"
+              href="src/app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css">
+>>>>>>> Stashed changes
         <!-- END: Vendor CSS-->
 
         <!-- BEGIN: Theme CSS-->
@@ -38,8 +54,19 @@
         <link rel="stylesheet" type="text/css" href="src/app-assets/css/components.css">
         <link rel="stylesheet" type="text/css" href="src/app-assets/css/themes/dark-layout.css">
         <link rel="stylesheet" type="text/css" href="src/app-assets/css/themes/bordered-layout.css">
+<<<<<<< Updated upstream
         <style>
             .votacion a{
+=======
+
+        <!-- BEGIN: Page CSS-->
+        <!-- <link rel="stylesheet" type="text/css" href="src/app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="src/app-assets/css/plugins/forms/form-validation.css">
+    <link rel="stylesheet" type="text/css" href="src/app-assets/css/pages/app-user.css"> -->
+        <!-- END: Page CSS-->
+        <style>
+            .metricas a{
+>>>>>>> Stashed changes
                 color:#c3151c;
             }
         </style>
@@ -48,6 +75,7 @@
     <body>
         <div class="main-sidebar">
             <div class="container-login">
+<<<<<<< Updated upstream
                 <div class="sidebar-main">
                     <div class="img-log">
                         <img class="logo-plat-sidebar" src="src/img/Votem_Logo_Primary_Navy.png" alt="">
@@ -72,6 +100,9 @@
                         </ul>
                     </nav>
                 </div>
+=======
+                <%@include file="sidebar.jsp" %>
+>>>>>>> Stashed changes
                 <div class="main-body-page"> 
                     <div class="content-wrapper">
                         <div class="content-body">
