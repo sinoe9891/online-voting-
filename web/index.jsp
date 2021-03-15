@@ -49,11 +49,17 @@
                                 <p>Inicie sesión con su cuenta para poder votar</p>
                             </div>
                             <div class="form">
-                                <form name="f1" action="autenticacion.jsp" method="POST">
+                                <form name="f1" action="pages/autenticacion.jsp" method="POST">
                                     <div class="input-form">
                                         <label for="Usuario">Usuario</label>
                                         <input type="text" name="ti_usuario" value="" />
                                     </div>
+<!--                                    <div class="input-group form-password-toggle mb-2">
+                                        <input type="password" class="form-control" id="basic-default-password" placeholder="Your Password" aria-describedby="basic-default-password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye font-small-4"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                        </div>
+                                    </div>-->
                                     <div class="input-form">
                                         <label for="Usuario">Contraseña</label>
                                         <input type="password" name="ti_password" value="role"/>
@@ -61,17 +67,17 @@
                                     <div class="input-form">
                                         <label for="Usuario">Role</label>
                                         <select name="role" >
-                                            <option value="3">
-                                                Magistrado
-                                            </option>
-                                            <option value="5">
-                                                Miembro de Mesa
-                                            </option>
                                             <option value="1">
                                                 Administrador
                                             </option>
+                                            <option value="2">
+                                                Miembro de Mesa
+                                            </option>
+                                            <option value="5">
+                                                Elector
+                                            </option>
                                             <option value="4">
-                                                Votante
+                                                Magistrados
                                             </option>
                                         </select>
                                     </div>

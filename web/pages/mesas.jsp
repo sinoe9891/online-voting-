@@ -135,7 +135,7 @@
     <body>
         <div class="main-sidebar">
             <div class="container-login">
-                <%@include file="sidebar-votante.jsp" %>
+                <%@include file="sidebar-mesas.jsp" %>
                 <div class="main-body-page"> 
                     <div class="content-wrapper">
                         <div class="content-body">
@@ -146,10 +146,6 @@
                                             <h3>Mesas Electorales</h3>
                                         </div>
                                         <div style="text-align:right;width: 50%;">
-                                            <!--<a href="mesas-encargado.jsp"><button class="btn add-new btn-primary mt-100" type="button"><span>Gestionar</span></button></a>-->
-                                            <!--<button class="btn add-new btn-info mt-100" type="button"><span>Editar</span></button>
-                                                <button class="btn add-new btn-warning mt-100" type="button"><span>Modificar</span></button>
-                                                <button class="btn add-new btn-danger mt-100" type="button"><span>Eliminar</span></button>-->
                                         </div>
                                     </div>
                                 </div>

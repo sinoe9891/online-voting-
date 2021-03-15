@@ -3,7 +3,8 @@
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 %>
-
+<%@page import="java.sql.*"%> 
+<%@page import="database.*"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -38,13 +39,17 @@
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/components.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/dark-layout.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/bordered-layout.css">
-
+        <style>
+            .elector a{
+                color:#c3151c;
+            }
+        </style>
     </head>
 
     <body>
         <div class="main-sidebar">
             <div class="container-login">
-                <%@include file="sidebar.jsp" %>
+                <%@include file="sidebar-mesas.jsp" %>
                 <div class="main-body-page"> 
                     <div class="content-wrapper">
                         <div class="content-body">
@@ -63,11 +68,31 @@
                             </section>
                             <section class="app-user-list">
                                 <div class="card">
-                                    <div class="responsive">
-                                        <div class="card-content">
-
+                                    <form class="needs-validation" name="f1" action="elector.jsp" method="POST">
+                                       <div class="card-body" style="display: flex;justify-content: center;text-align: center;">
+                                            <div style="width: 400px;">
+                                                <div class="row">
+                                                    <div class="col-12 mb-1">
+                                                        <h3>Por favor ingresar tus datos para que puedas realizar tu votación</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="helpInputTop">IDENTIDAD</label>
+                                                            <small class="text-muted"> <i>(Sin guiones)</i></small>
+                                                            <input type="text" class="form-control" name="identidad" placeholder="0801198907280" required/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 mb-1">
+                                                        <button class="btn btn-primary" name="bt_login" type="submit">Acceder</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </section>
                         </div>

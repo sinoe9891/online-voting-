@@ -9,7 +9,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="es">
 
-    <head>
+        <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,13 +38,12 @@
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/components.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/dark-layout.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/bordered-layout.css">
-
     </head>
 
     <body>
         <div class="main-sidebar">
             <div class="container-login">
-                <%@include file="sidebar.jsp" %>
+                <%@include file="sidebar-mesas.jsp" %>
                 <div class="main-body-page"> 
                     <div class="content-wrapper">
                         <div class="content-body">
@@ -63,10 +62,8 @@
                             </section>
                             <section class="app-user-list">
                                 <div class="card">
-                                    <div class="responsive">
-                                        <div class="card-content">
-
-                                        </div>
+                                    <div class="nav-header">
+                                        <h3>Bienvenidos a la MESA #1231</h3>
                                     </div>
                                 </div>
                             </section>

@@ -125,7 +125,7 @@
     <body>
         <div class="main-sidebar">
             <div class="container-login">
-                <%@include file="sidebar.jsp" %>
+                <%@include file="sidebar-mesas.jsp" %>
                 <div class="main-body-page"> 
                     <div class="content-wrapper">
                         <div class="content-body">
@@ -203,19 +203,19 @@
                                             <section class="app-user-list" id="id_mapa_ver">                                                
                                                     <h4>Información del Ciudadano</h4>
                                                     <div class="nav-header">
-
-                                                        <ul class="list-group list-group-flush">
-                                                            <li class="list-group-item">NÚMERO DE IDENTIDAD: <strong> <%=identidad%> </strong></li>
-                                                            <li class="list-group-item">NOMBRE APARECE EN CENSO: <strong> <%=nombres%> <%=apellidos%></strong></li>
-                                                            <li class="list-group-item">SEXO: <strong><%=sexo%></strong></li>
-                                                            <li class="list-group-item">FECHA DE NACIMIENTO: <strong><%=fecha_nacimiento%></strong></li>
-                                                            <li class="list-group-item">ESTADO EN CENSO: <strong><%=estatus%></strong></li>
-                                                            <li class="list-group-item">DEPARTAMENTO Y MUNICIPIO DE DOMICILIO: <strong><%=municipio%>, <%=departamento%></strong></li>
-                                                            <li class="list-group-item">NOMBRE DEL SECTOR DOMICILIO: <strong><%=colonia%></strong></li>
-                                                            <li class="list-group-item">MESA:<strong> <%=numero_mesa%></strong></li>
-                                                            <li class="list-group-item">LÍNEA:<strong> <%=linea%></strong></li>
-                                                        </ul>
-
+                                                        
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item">NÚMERO DE IDENTIDAD: <strong> <%=identidad%> </strong></li>
+                                                                <li class="list-group-item">NOMBRE APARECE EN CENSO: <strong> <%=nombres%> <%=apellidos%></strong></li>
+                                                                <li class="list-group-item">SEXO: <strong><%=sexo%></strong></li>
+                                                                <li class="list-group-item">FECHA DE NACIMIENTO: <strong><%=fecha_nacimiento%></strong></li>
+                                                                <li class="list-group-item">ESTADO EN CENSO: <strong><%=estatus%></strong></li>
+                                                                <li class="list-group-item">DEPARTAMENTO Y MUNICIPIO DE DOMICILIO: <strong><%=municipio%>, <%=departamento%></strong></li>
+                                                                <li class="list-group-item">NOMBRE DEL SECTOR DOMICILIO: <strong><%=colonia%></strong></li>
+                                                                <li class="list-group-item">MESA:<strong> <%=numero_mesa%></strong></li>
+                                                                <li class="list-group-item">LÍNEA:<strong> <%=linea%></strong></li>
+                                                            </ul>
+                                                        
                                                     </div>
                                                 
                                             </section>
@@ -301,7 +301,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
-                                                            <a href="votantes.jsp?identidad=<%=identidad%>&centro=<%=centro%>&latitud=<%=latitud%>&longitud=<%=longitud%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver Votante</a>
+                                                            <a href="miembros-electorales.jsp?identidad=<%=identidad%>&centro=<%=centro%>&latitud=<%=latitud%>&longitud=<%=longitud%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver Votante</a>
                                                         </div>
                                                     </td>
                                                 </tr>

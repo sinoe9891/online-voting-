@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/proyectos/kidan/online-voting/Online-Voting/web/pages/votantes.jsp</file>
+            <file>file:/D:/proyectos/kidan/online-voting/Online-Voting/web/pages/elector.jsp</file>
+            <file>file:/D:/proyectos/kidan/online-voting/Online-Voting/web/pages/elector_login.jsp</file>
+            <file>file:/D:/proyectos/kidan/online-voting/Online-Voting/web/pages/autenticacion.jsp</file>
+            <file>file:/D:/proyectos/kidan/online-voting/Online-Voting/web/index.jsp</file>
+            <file>file:/D:/proyectos/kidan/online-voting/Online-Voting/web/pages/principal.jsp</file>
+            <file>file:/D:/proyectos/kidan/online-voting/Online-Voting/web/pages/elector_autentificacion.jsp</file>
         </group>
     </open-files>
 </project-private>

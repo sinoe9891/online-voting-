@@ -5,7 +5,7 @@
 //      Conexión Apache  Dba db = new Dba(application.getRealPath("") + "daw.mdb");
         Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
         db.conectar();
-        db.query.execute("select username, password, role from users");
+        db.query.execute("select nombre_votante, identidad, role from votantes");
         ResultSet rs = db.query.getResultSet();
         String centinela = "n";
         while (rs.next()) {
@@ -23,10 +23,8 @@
 //            request.getParameter("role").toString().equals(rs.getString(3));
             
             out.print(request.getParameter("role"));
-            if (request.getParameter("role").equals("1")) {
-                 request.getRequestDispatcher("pages/principal.jsp").forward(request, response);
-            }else if (request.getParameter("role").equals("5")) {
-                 request.getRequestDispatcher("pages/votacion.jsp").forward(request, response);
+            if (request.getParameter("role").equals("2")) {
+                 request.getRequestDispatcher("elector.jsp").forward(request, response);
             }else{
                 out.print("<script>alert('el usuario no existe')</script>");
             }
@@ -34,7 +32,7 @@
 
         } else {
             out.print("<script>alert('el usuario no existe')</script>");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("elector_login.jsp").forward(request, response);
         }
         db.desconectar();
     } catch (Exception e) {

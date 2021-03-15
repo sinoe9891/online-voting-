@@ -7,7 +7,7 @@
     </div>
     <nav>
         <ul class="navigation navigation-main">
-            <li class="nav-item metricas"><a href="votacion.jsp"><i class="fas fa-poll"></i>Votante</li></a>
+            <li class="nav-item metricas"><a href="votacion.jsp"><i class="fas fa-poll"></i>Métricas</li></a>
             <li class="nav-item partidos"><a href="partidos-politicos.jsp"><i class="far fa-flag"></i>Partidos Políticos</li></a>
             <li class="nav-item presidente"><a href="presidente.jsp"><i class="fas fa-user"></i>Presidente</li></a>
             <li class="nav-item alcaldes"><a href="#"><i class="fas fa-user-friends"></i>Alcaldes</li></a>
