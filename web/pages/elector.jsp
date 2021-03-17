@@ -41,12 +41,50 @@
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/components.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/dark-layout.css">
         <link rel="stylesheet" type="text/css" href="../src/app-assets/css/themes/bordered-layout.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <style>
             .elector a{
                 color:#c3151c;
             }
             li.list-group-item {
                 text-align: left;
+            }
+            .input {
+                display: flex;
+                justify-content: space-around;
+            }
+
+            [type="radio"] {
+                display: none;
+            }
+
+            label {
+                width: 300px;
+                height: 300px;
+                padding-left: 1em;
+                position: relative;
+                border: 1px solid rgb(47, 61, 255);
+            }
+
+            /* Desactivado */
+            label:before {
+                content: ' ';
+                border-radius: 20px;
+                width:0.8em;
+                height:0.8em;
+                position:absolute;
+                left:0px;
+                top: -0.26em;
+                position: relative;
+                transition: all 0.2s;
+            }
+
+            [type="radio"]:checked+label:before {
+                color: #00e676;
+                content: '\f00d';
+                font-family: FontAwesome;
+                font-size: 300px;
             }
         </style>
     </head>
@@ -130,7 +168,7 @@
                                                         <a class="nav-link  <%=bloqueadoTab%>" id="pills-profile-tab" data-toggle="pill" href="#pills-diputado" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-users"></i>Diputados</li></a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link <%=bloqueadoTab%>" href="elector_login.jsp" tabindex="-1" ><i class="fas fa-sign-out-alt"></i></i>Cerrar Sesión</li></a>
+                                                        <a class="nav-link" href="elector_login.jsp" tabindex="-1" ><i class="fas fa-sign-out-alt"></i></i>Regresar</li></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -157,11 +195,38 @@
                                                         </ul>
                                                         <%  }%>
                                                     </div>
-
-
-
                                                     <div class="tab-pane fade" id="pills-presidente" role="tabpanel" aria-labelledby="pills-profile-tab">
                                                         <h4 class="card-title">Presidentes</h4>
+                                                        <h4 class="card-title">Formula Presidencial y Al Palmento Centroamericano 2021</h4>
+                                                        <div class="col-lg-4 col-md-6 col-12">
+                                                            <div class="card card-developer-meetup">
+                                                                <form class="form" style="display: flex;" action="pages/elector.jsp">
+                                                                    <div class="caja1" style="margin: 0 20px;">
+                                                                        <div class="meetup-img-wrapper rounded-top text-center">
+                                                                            <img src="../src/presidentes/luis.jpg" alt="Meeting Pic" height="170" />
+                                                                        </div>
+                                                                        <div class="input">
+                                                                            <div class="input-box">
+                                                                                <input type="radio" id="activar" name="presidentes" required>
+                                                                                <label for="activar"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="caja1" style="margin: 0 20px;">
+                                                                        <div class="meetup-img-wrapper rounded-top text-center">
+                                                                            <img src="../src/presidentes/luis.jpg" alt="Meeting Pic" height="170" />
+                                                                        </div>
+                                                                        <div class="input">
+                                                                            <div class="input-box">
+                                                                                <input type="radio" id="activar2" name="presidentes" required>
+                                                                                <label for="activar2"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <input type="submit" value="Modificar Mesa" name="bt_vota_presidente">
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="tab-pane fade" id="pills-alcalde" role="tabpanel" aria-labelledby="pills-profile-tab">
                                                         <h4 class="card-title">Alcaldes</h4>

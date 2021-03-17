@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<form action="">
+
+	<div class="input">
+		<div class="input-box">
+			<input type="radio" id="activar" name="presidentes">
+			<label for="activar"></label>
+		</div>
+		<div class="input-box">
+			<input type="radio" id="1" name="presidentes">
+			<label for="1"></label>
+		</div>
+	</div>
+</form>
+
+<style>
+	/* body {
+		font-size: 4em;
+	} */
+
+	.input {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	[type="radio"] {
+		display: none;
+	}
+
+	label {
+		width: 300px;
+		height: 300px;
+		padding-left: 1em;
+		position: absolute;
+		border: 1px solid rgb(47, 61, 255);
+	}
+
+	/* Desactivado */
+	label:before {
+		content: ' ';
+		border-radius: 20px;
+
+		position: relative;
+		transition: all 0.2s;
+	}
+
+	[type="radio"]:checked+label:before {
+		color: #00e676;
+		content: '\f00d';
+		font-family: FontAwesome;
+		font-size: 300px;
+	}
+</style>

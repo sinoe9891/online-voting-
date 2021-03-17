@@ -112,7 +112,14 @@
 
 
         </script>
-
+        <script>
+            function mod(pid, pnp, pd) {
+                var modal2 = document.getElementById(" ");
+                document.getElementById("idh1").value = pid;
+                document.getElementById("ids1").value = pnp;
+                document.getElementById("ids2").value = pd;
+            }
+        </script>
         <style>
             .votantes a{
                 color:#c3151c;
@@ -146,6 +153,28 @@
                             </section>
                             <section class="app-user-list" id="id_mapa_ver">
                                 <div class="card">
+                                    <%
+                                        //MODIFICAR un producto-----------------------------------------------   
+                                        if (request.getParameter("bt_modificar") != null) {
+                                            try {
+                                                Dba db = new Dba(application.getRealPath("votacion_2021_honduras.mdb"));
+                                                db.conectar();
+                                                int contador = db.query.executeUpdate("UPDATE votantes "
+                                                        + "SET estado='" + request.getParameter("estado_votante") + "'"
+                                                        + "WHERE id_votante='" + request.getParameter("ti_id") + "' ");
+                                                if (contador >= 1) {
+                                                    String alerta = "<div class='alert alert-success' role='alert'><h4 class='alert-heading'>El registro se modificó correctamente</h4></div>";
+                                                    out.print(alerta);
+                                                }
+                                                db.commit();
+                                                db.desconectar();
+                                            } catch (Exception e) {
+                                                String alerta = "<div class='alert alert-danger' role='alert'><h4 class='alert-heading'>El registro no se modificó</h4></div>";
+                                                out.print(alerta);
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    %>
                                     <div class="nav-header">
                                         <div>
                                             <section class="app-user-list" id="id_mapa_ver">
@@ -201,23 +230,23 @@
                                                     }
                                             %>
                                             <section class="app-user-list" id="id_mapa_ver">                                                
-                                                    <h4>Información del Ciudadano</h4>
-                                                    <div class="nav-header">
-                                                        
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item">NÚMERO DE IDENTIDAD: <strong> <%=identidad%> </strong></li>
-                                                                <li class="list-group-item">NOMBRE APARECE EN CENSO: <strong> <%=nombres%> <%=apellidos%></strong></li>
-                                                                <li class="list-group-item">SEXO: <strong><%=sexo%></strong></li>
-                                                                <li class="list-group-item">FECHA DE NACIMIENTO: <strong><%=fecha_nacimiento%></strong></li>
-                                                                <li class="list-group-item">ESTADO EN CENSO: <strong><%=estatus%></strong></li>
-                                                                <li class="list-group-item">DEPARTAMENTO Y MUNICIPIO DE DOMICILIO: <strong><%=municipio%>, <%=departamento%></strong></li>
-                                                                <li class="list-group-item">NOMBRE DEL SECTOR DOMICILIO: <strong><%=colonia%></strong></li>
-                                                                <li class="list-group-item">MESA:<strong> <%=numero_mesa%></strong></li>
-                                                                <li class="list-group-item">LÍNEA:<strong> <%=linea%></strong></li>
-                                                            </ul>
-                                                        
-                                                    </div>
-                                                
+                                                <h4>Información del Ciudadano</h4>
+                                                <div class="nav-header">
+
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item">NÚMERO DE IDENTIDAD: <strong> <%=identidad%> </strong></li>
+                                                        <li class="list-group-item">NOMBRE APARECE EN CENSO: <strong> <%=nombres%> <%=apellidos%></strong></li>
+                                                        <li class="list-group-item">SEXO: <strong><%=sexo%></strong></li>
+                                                        <li class="list-group-item">FECHA DE NACIMIENTO: <strong><%=fecha_nacimiento%></strong></li>
+                                                        <li class="list-group-item">ESTADO EN CENSO: <strong><%=estatus%></strong></li>
+                                                        <li class="list-group-item">DEPARTAMENTO Y MUNICIPIO DE DOMICILIO: <strong><%=municipio%>, <%=departamento%></strong></li>
+                                                        <li class="list-group-item">NOMBRE DEL SECTOR DOMICILIO: <strong><%=colonia%></strong></li>
+                                                        <li class="list-group-item">MESA:<strong> <%=numero_mesa%></strong></li>
+                                                        <li class="list-group-item">LÍNEA:<strong> <%=linea%></strong></li>
+                                                    </ul>
+
+                                                </div>
+
                                             </section>
                                         </div>
                                         <%  }%>
@@ -239,9 +268,9 @@
                                                     <th data-field="nombre" data-editable="false">IDENTIDAD</th>
                                                     <th data-field="operaciones" data-editable="false">NOMBRE</th>
                                                     <th data-field="operaciones" data-editable="false">APELLIDO</th>
-                                                    <th data-field="descripcion" data-editable="false">SEXO</th>
-                                                    <th data-field="operaciones" data-editable="false">ESTADO</th>
                                                     <th data-field="operaciones" data-editable="false">MÁS INFORMACIÓN</th>
+                                                    <th data-field="operaciones" data-editable="false">ESTADO VOTANTE</th>
+                                                    <th data-field="descripcion" data-editable="false">ACCIONES</th>
                                                     <!--<th data-field="operaciones" data-editable="false">MÁS INFORMACIÓN</th>-->
                                                 </tr>
                                             </thead>
@@ -291,7 +320,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex justify-content-left align-items-center">
-                                                            <%=sexo%>
+                                                            <a href="miembros-electorales.jsp?identidad=<%=identidad%>&centro=<%=centro%>&latitud=<%=latitud%>&longitud=<%=longitud%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver Votante</a>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -300,8 +329,21 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="d-flex justify-content-left align-items-center">
-                                                            <a href="miembros-electorales.jsp?identidad=<%=identidad%>&centro=<%=centro%>&latitud=<%=latitud%>&longitud=<%=longitud%>&zoom_m=19&ver_mapa=1" onclick="mostrar_mapa(1)">Ver Votante</a>
+                                                        <div class="dropdown">
+                                                            <a data-toggle="dropdown">
+                                                                <i class="fas fa-door-open"></i>
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item"  data-toggle="modal" data-target="#inlineForm" onclick="mod('<%=id_votante%>', '<%=estado%>')">
+                                                                    <i data-feather="edit-2" class="mr-50"></i>
+                                                                    <span>Modificar</span>
+                                                                </a>
+<!--                                                                <a class="dropdown-item" href="mesas.jsp?p_id=<%=id_votante%>&p_eliminar=1">
+                                                                    <i data-feather="trash" class="mr-50"></i>
+                                                                    <span>Eliminar</span>
+                                                                </a>-->
+                                                            </div>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -316,12 +358,44 @@
                 </div>
             </div>
         </div>
-
+        <!--Modal-->
+        <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+            <div d="myModal" class="modal-dialog modal-dialog-centered" role="document" i>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel33">Modificar Estado de Mesa</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form name="fM1" action="miembro-electores.jsp" method="POST">
+                        <input type="hidden" id="idh1" name="ti_id" value="" />
+                        <div class="modal-body">
+                            <label>Estado de Votante </label>
+                            <div class="form-group">
+                                <select class="form-control" id="ids3" name="estado_votante">
+                                    <option value="TRUE" selected>
+                                        Habilitado
+                                    </option>
+                                    <option value="FALSE">
+                                        Inhabilitado
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" value="Modificar Mesa" name="bt_modificar" /><br>    
+                            <!--<button type="button" name="bt_modificar" class="btn btn-primary" data-dismiss="modal">Actualizar</button>-->
+                        </div>
+                    </form>    
+                </div>
+            </div>
+        </div>
         <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
         <script>
-                                                                $("#datatable").DataTable();
+                                                                    $("#datatable").DataTable();
         </script>
         <!-- BEGIN: Vendor JS-->
         <script src="../src/app-assets/vendors/js/vendors.min.js"></script>
@@ -339,14 +413,14 @@
         <script src="../src/app-assets/js/scripts/tables/table-datatables-advanced.js"></script>
         <!-- END: Page Vendor JS-->
         <script>
-                                                                $(window).on('load', function () {
-                                                                    if (feather) {
-                                                                        feather.replace({
-                                                                            width: 14,
-                                                                            height: 14
-                                                                        });
-                                                                    }
-                                                                })
+                                                                    $(window).on('load', function () {
+                                                                        if (feather) {
+                                                                            feather.replace({
+                                                                                width: 14,
+                                                                                height: 14
+                                                                            });
+                                                                        }
+                                                                    })
         </script> 
         <!-- BEGIN: Theme JS-->
         <script src="../src/app-assets/js/core/app-menu.js"></script>

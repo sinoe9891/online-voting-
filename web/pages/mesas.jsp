@@ -255,8 +255,8 @@
                                                     <th data-field="nombre" data-editable="false">NÚMERO DE MESA</th>
                                                     <th data-field="operaciones" data-editable="false">CENTRO DE VOTACIÓN</th>
                                                     <th data-field="descripcion" data-editable="false">DEPARTAMENTO</th>
-                                                    <th data-field="operaciones" data-editable="false">ESTADO DE MESA</th>
                                                     <th data-field="operaciones" data-editable="false">INFORMACIÓN</th>
+                                                    <th data-field="operaciones" data-editable="false">ESTADO DE MESA</th>
                                                     <th data-field="operaciones" data-editable="false">ACCIONES</th>
                                                 </tr>
                                             </thead>

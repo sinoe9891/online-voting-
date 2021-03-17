@@ -73,10 +73,7 @@
                                             <option value="2">
                                                 Miembro de Mesa
                                             </option>
-                                            <option value="5">
-                                                Elector
-                                            </option>
-                                            <option value="4">
+                                            <option value="3">
                                                 Magistrados
                                             </option>
                                         </select>

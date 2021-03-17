@@ -83,8 +83,7 @@
                                                 db.conectar();
                                                 db.query.execute("select nombre_presidente, photo_profile, src_url_logo_movimiento, genero_presidente from presidente");
                                                 ResultSet rs = db.query.getResultSet();
-                                                String centinela = "n";
-                                                                                while (rs.next()) {%>
+                                                while (rs.next()) {%>
                                         <div class="card-content">
                                             <div class="img-logo">
                                                 <img src="<%=rs.getString(2)%>" alt="<%=rs.getString(2)%>">
